@@ -1,0 +1,2927 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html -->
+<html dir="ltr" lang="es-419"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<title>3.1  CPU, Controlador del bus, Puertos de E/S, controlador de interrupciones, de DMA, Circuitos de temporizacion, controladores de video</title>
+
+<!-- Chrome, Firefox OS and Opera -->
+<meta content="#01050c" name="theme-color">
+<!-- Windows Phone -->
+<meta content="#01050c" name="msapplication-navbutton-color">
+<meta content="blogger" name="generator">
+<link href="http://arquidepcs.blogspot.com/favicon.ico" rel="icon" type="image/x-icon">
+<link href="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" rel="canonical">
+<link rel="alternate" type="application/atom+xml" title="Arquitectura de computadoras - Atom" href="http://arquidepcs.blogspot.com/feeds/posts/default">
+<link rel="alternate" type="application/rss+xml" title="Arquitectura de computadoras - RSS" href="http://arquidepcs.blogspot.com/feeds/posts/default?alt=rss">
+<link rel="service.post" type="application/atom+xml" title="Arquitectura de computadoras - Atom" href="https://www.blogger.com/feeds/5828396875459327552/posts/default">
+
+<link rel="alternate" type="application/atom+xml" title="Arquitectura de computadoras - Atom" href="http://arquidepcs.blogspot.com/feeds/8624419039832350185/comments/default">
+<!--Can't find substitution for tag [blog.ieCssRetrofitLinks]-->
+<link href="./bus_files/3780074932_3886181808.jpg" rel="image_src">
+<meta content="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" property="og:url">
+<meta content="3.1  CPU, Controlador del bus, Puertos de E/S, controlador de interrupciones, de DMA, Circuitos de temporizacion, controladores de video" property="og:title">
+<meta content="Ahora hablaremos acerca de los controladores del bus, que se encargan de dirigir las diferentes funciones de los buses, de los puertos de E/..." property="og:description">
+<meta content="http://4.bp.blogspot.com/-dXycVn8lyns/VmpntZ5PCyI/AAAAAAAAAkU/skEeHOECp-0/w1200-h630-p-k-no-nu/3780074932_3886181808.jpg" property="og:image">
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<style type="text/css">@font-face{font-family:'Lato';font-style:normal;font-weight:300;src:url(//fonts.gstatic.com/s/lato/v17/S6u9w4BMUTPHh7USSwaPGR_p.woff2)format('woff2');unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;}@font-face{font-family:'Lato';font-style:normal;font-weight:300;src:url(//fonts.gstatic.com/s/lato/v17/S6u9w4BMUTPHh7USSwiPGQ.woff2)format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}@font-face{font-family:'Lato';font-style:normal;font-weight:400;src:url(//fonts.gstatic.com/s/lato/v17/S6uyw4BMUTPHjxAwXjeu.woff2)format('woff2');unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;}@font-face{font-family:'Lato';font-style:normal;font-weight:400;src:url(//fonts.gstatic.com/s/lato/v17/S6uyw4BMUTPHjx4wXg.woff2)format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}@font-face{font-family:'Lato';font-style:normal;font-weight:700;src:url(//fonts.gstatic.com/s/lato/v17/S6u9w4BMUTPHh6UVSwaPGR_p.woff2)format('woff2');unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;}@font-face{font-family:'Lato';font-style:normal;font-weight:700;src:url(//fonts.gstatic.com/s/lato/v17/S6u9w4BMUTPHh6UVSwiPGQ.woff2)format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}</style>
+<style id="page-skin-1" type="text/css"><!--
+/*! normalize.css v3.0.1 | MIT License | git.io/normalize */html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:bold}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+/*!************************************************
+* Blogger Template Style
+* Name: Soho
+**************************************************/
+body{
+overflow-wrap:break-word;
+word-break:break-word;
+word-wrap:break-word
+}
+.hidden{
+display:none
+}
+.invisible{
+visibility:hidden
+}
+.container::after,.float-container::after{
+clear:both;
+content:"";
+display:table
+}
+.clearboth{
+clear:both
+}
+#comments .comment .comment-actions,.subscribe-popup .FollowByEmail .follow-by-email-submit{
+background:0 0;
+border:0;
+box-shadow:none;
+color:#77e4ff;
+cursor:pointer;
+font-size:14px;
+font-weight:700;
+outline:0;
+text-decoration:none;
+text-transform:uppercase;
+width:auto
+}
+.dim-overlay{
+background-color:rgba(0,0,0,.54);
+height:100vh;
+left:0;
+position:fixed;
+top:0;
+width:100%
+}
+#sharing-dim-overlay{
+background-color:transparent
+}
+input::-ms-clear{
+display:none
+}
+.blogger-logo,.svg-icon-24.blogger-logo{
+fill:#ff9800;
+opacity:1
+}
+.loading-spinner-large{
+-webkit-animation:mspin-rotate 1.568s infinite linear;
+animation:mspin-rotate 1.568s infinite linear;
+height:48px;
+overflow:hidden;
+position:absolute;
+width:48px;
+z-index:200
+}
+.loading-spinner-large>div{
+-webkit-animation:mspin-revrot 5332ms infinite steps(4);
+animation:mspin-revrot 5332ms infinite steps(4)
+}
+.loading-spinner-large>div>div{
+-webkit-animation:mspin-singlecolor-large-film 1333ms infinite steps(81);
+animation:mspin-singlecolor-large-film 1333ms infinite steps(81);
+background-size:100%;
+height:48px;
+width:3888px
+}
+.mspin-black-large>div>div,.mspin-grey_54-large>div>div{
+background-image:url(https://www.blogblog.com/indie/mspin_black_large.svg)
+}
+.mspin-white-large>div>div{
+background-image:url(https://www.blogblog.com/indie/mspin_white_large.svg)
+}
+.mspin-grey_54-large{
+opacity:.54
+}
+@-webkit-keyframes mspin-singlecolor-large-film{
+from{
+-webkit-transform:translateX(0);
+transform:translateX(0)
+}
+to{
+-webkit-transform:translateX(-3888px);
+transform:translateX(-3888px)
+}
+}
+@keyframes mspin-singlecolor-large-film{
+from{
+-webkit-transform:translateX(0);
+transform:translateX(0)
+}
+to{
+-webkit-transform:translateX(-3888px);
+transform:translateX(-3888px)
+}
+}
+@-webkit-keyframes mspin-rotate{
+from{
+-webkit-transform:rotate(0);
+transform:rotate(0)
+}
+to{
+-webkit-transform:rotate(360deg);
+transform:rotate(360deg)
+}
+}
+@keyframes mspin-rotate{
+from{
+-webkit-transform:rotate(0);
+transform:rotate(0)
+}
+to{
+-webkit-transform:rotate(360deg);
+transform:rotate(360deg)
+}
+}
+@-webkit-keyframes mspin-revrot{
+from{
+-webkit-transform:rotate(0);
+transform:rotate(0)
+}
+to{
+-webkit-transform:rotate(-360deg);
+transform:rotate(-360deg)
+}
+}
+@keyframes mspin-revrot{
+from{
+-webkit-transform:rotate(0);
+transform:rotate(0)
+}
+to{
+-webkit-transform:rotate(-360deg);
+transform:rotate(-360deg)
+}
+}
+.skip-navigation{
+background-color:#fff;
+box-sizing:border-box;
+color:#000;
+display:block;
+height:0;
+left:0;
+line-height:50px;
+overflow:hidden;
+padding-top:0;
+position:fixed;
+text-align:center;
+top:0;
+-webkit-transition:box-shadow .3s,height .3s,padding-top .3s;
+transition:box-shadow .3s,height .3s,padding-top .3s;
+width:100%;
+z-index:900
+}
+.skip-navigation:focus{
+box-shadow:0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2);
+height:50px
+}
+#main{
+outline:0
+}
+.main-heading{
+position:absolute;
+clip:rect(1px,1px,1px,1px);
+padding:0;
+border:0;
+height:1px;
+width:1px;
+overflow:hidden
+}
+.Attribution{
+margin-top:1em;
+text-align:center
+}
+.Attribution .blogger img,.Attribution .blogger svg{
+vertical-align:bottom
+}
+.Attribution .blogger img{
+margin-right:.5em
+}
+.Attribution div{
+line-height:24px;
+margin-top:.5em
+}
+.Attribution .copyright,.Attribution .image-attribution{
+font-size:.7em;
+margin-top:1.5em
+}
+.BLOG_mobile_video_class{
+display:none
+}
+.bg-photo{
+background-attachment:scroll!important
+}
+body .CSS_LIGHTBOX{
+z-index:900
+}
+.extendable .show-less,.extendable .show-more{
+border-color:#77e4ff;
+color:#77e4ff;
+margin-top:8px
+}
+.extendable .show-less.hidden,.extendable .show-more.hidden{
+display:none
+}
+.inline-ad{
+display:none;
+max-width:100%;
+overflow:hidden
+}
+.adsbygoogle{
+display:block
+}
+#cookieChoiceInfo{
+bottom:0;
+top:auto
+}
+iframe.b-hbp-video{
+border:0
+}
+.post-body img{
+max-width:100%
+}
+.post-body iframe{
+max-width:100%
+}
+.post-body a[imageanchor="1"]{
+display:inline-block
+}
+.byline{
+margin-right:1em
+}
+.byline:last-child{
+margin-right:0
+}
+.link-copied-dialog{
+max-width:520px;
+outline:0
+}
+.link-copied-dialog .modal-dialog-buttons{
+margin-top:8px
+}
+.link-copied-dialog .goog-buttonset-default{
+background:0 0;
+border:0
+}
+.link-copied-dialog .goog-buttonset-default:focus{
+outline:0
+}
+.paging-control-container{
+margin-bottom:16px
+}
+.paging-control-container .paging-control{
+display:inline-block
+}
+.paging-control-container .comment-range-text::after,.paging-control-container .paging-control{
+color:#77e4ff
+}
+.paging-control-container .comment-range-text,.paging-control-container .paging-control{
+margin-right:8px
+}
+.paging-control-container .comment-range-text::after,.paging-control-container .paging-control::after{
+content:"\b7";
+cursor:default;
+padding-left:8px;
+pointer-events:none
+}
+.paging-control-container .comment-range-text:last-child::after,.paging-control-container .paging-control:last-child::after{
+content:none
+}
+.byline.reactions iframe{
+height:20px
+}
+.b-notification{
+color:#000;
+background-color:#fff;
+border-bottom:solid 1px #000;
+box-sizing:border-box;
+padding:16px 32px;
+text-align:center
+}
+.b-notification.visible{
+-webkit-transition:margin-top .3s cubic-bezier(.4,0,.2,1);
+transition:margin-top .3s cubic-bezier(.4,0,.2,1)
+}
+.b-notification.invisible{
+position:absolute
+}
+.b-notification-close{
+position:absolute;
+right:8px;
+top:8px
+}
+.no-posts-message{
+line-height:40px;
+text-align:center
+}
+@media screen and (max-width:1162px){
+body.item-view .post-body a[imageanchor="1"][style*="float: left;"],body.item-view .post-body a[imageanchor="1"][style*="float: right;"]{
+float:none!important;
+clear:none!important
+}
+body.item-view .post-body a[imageanchor="1"] img{
+display:block;
+height:auto;
+margin:0 auto
+}
+body.item-view .post-body>.separator:first-child>a[imageanchor="1"]:first-child{
+margin-top:20px
+}
+.post-body a[imageanchor]{
+display:block
+}
+body.item-view .post-body a[imageanchor="1"]{
+margin-left:0!important;
+margin-right:0!important
+}
+body.item-view .post-body a[imageanchor="1"]+a[imageanchor="1"]{
+margin-top:16px
+}
+}
+.item-control{
+display:none
+}
+#comments{
+border-top:1px dashed rgba(0,0,0,.54);
+margin-top:20px;
+padding:20px
+}
+#comments .comment-thread ol{
+margin:0;
+padding-left:0;
+padding-left:0
+}
+#comments .comment .comment-replybox-single,#comments .comment-thread .comment-replies{
+margin-left:60px
+}
+#comments .comment-thread .thread-count{
+display:none
+}
+#comments .comment{
+list-style-type:none;
+padding:0 0 30px;
+position:relative
+}
+#comments .comment .comment{
+padding-bottom:8px
+}
+.comment .avatar-image-container{
+position:absolute
+}
+.comment .avatar-image-container img{
+border-radius:50%
+}
+.avatar-image-container svg,.comment .avatar-image-container .avatar-icon{
+border-radius:50%;
+border:solid 1px #ffffff;
+box-sizing:border-box;
+fill:#ffffff;
+height:35px;
+margin:0;
+padding:7px;
+width:35px
+}
+.comment .comment-block{
+margin-top:10px;
+margin-left:60px;
+padding-bottom:0
+}
+#comments .comment-author-header-wrapper{
+margin-left:40px
+}
+#comments .comment .thread-expanded .comment-block{
+padding-bottom:20px
+}
+#comments .comment .comment-header .user,#comments .comment .comment-header .user a{
+color:#ffffff;
+font-style:normal;
+font-weight:700
+}
+#comments .comment .comment-actions{
+bottom:0;
+margin-bottom:15px;
+position:absolute
+}
+#comments .comment .comment-actions>*{
+margin-right:8px
+}
+#comments .comment .comment-header .datetime{
+bottom:0;
+color:rgba(255, 255, 255, 0.54);
+display:inline-block;
+font-size:13px;
+font-style:italic;
+margin-left:8px
+}
+#comments .comment .comment-footer .comment-timestamp a,#comments .comment .comment-header .datetime a{
+color:rgba(255, 255, 255, 0.54)
+}
+#comments .comment .comment-content,.comment .comment-body{
+margin-top:12px;
+word-break:break-word
+}
+.comment-body{
+margin-bottom:12px
+}
+#comments.embed[data-num-comments="0"]{
+border:0;
+margin-top:0;
+padding-top:0
+}
+#comments.embed[data-num-comments="0"] #comment-post-message,#comments.embed[data-num-comments="0"] div.comment-form>p,#comments.embed[data-num-comments="0"] p.comment-footer{
+display:none
+}
+#comment-editor-src{
+display:none
+}
+.comments .comments-content .loadmore.loaded{
+max-height:0;
+opacity:0;
+overflow:hidden
+}
+.extendable .remaining-items{
+height:0;
+overflow:hidden;
+-webkit-transition:height .3s cubic-bezier(.4,0,.2,1);
+transition:height .3s cubic-bezier(.4,0,.2,1)
+}
+.extendable .remaining-items.expanded{
+height:auto
+}
+.svg-icon-24,.svg-icon-24-button{
+cursor:pointer;
+height:24px;
+width:24px;
+min-width:24px
+}
+.touch-icon{
+margin:-12px;
+padding:12px
+}
+.touch-icon:active,.touch-icon:focus{
+background-color:rgba(153,153,153,.4);
+border-radius:50%
+}
+svg:not(:root).touch-icon{
+overflow:visible
+}
+html[dir=rtl] .rtl-reversible-icon{
+-webkit-transform:scaleX(-1);
+-ms-transform:scaleX(-1);
+transform:scaleX(-1)
+}
+.svg-icon-24-button,.touch-icon-button{
+background:0 0;
+border:0;
+margin:0;
+outline:0;
+padding:0
+}
+.touch-icon-button .touch-icon:active,.touch-icon-button .touch-icon:focus{
+background-color:transparent
+}
+.touch-icon-button:active .touch-icon,.touch-icon-button:focus .touch-icon{
+background-color:rgba(153,153,153,.4);
+border-radius:50%
+}
+.Profile .default-avatar-wrapper .avatar-icon{
+border-radius:50%;
+border:solid 1px #ffffff;
+box-sizing:border-box;
+fill:#ffffff;
+margin:0
+}
+.Profile .individual .default-avatar-wrapper .avatar-icon{
+padding:25px
+}
+.Profile .individual .avatar-icon,.Profile .individual .profile-img{
+height:120px;
+width:120px
+}
+.Profile .team .default-avatar-wrapper .avatar-icon{
+padding:8px
+}
+.Profile .team .avatar-icon,.Profile .team .default-avatar-wrapper,.Profile .team .profile-img{
+height:40px;
+width:40px
+}
+.snippet-container{
+margin:0;
+position:relative;
+overflow:hidden
+}
+.snippet-fade{
+bottom:0;
+box-sizing:border-box;
+position:absolute;
+width:96px
+}
+.snippet-fade{
+right:0
+}
+.snippet-fade:after{
+content:"\2026"
+}
+.snippet-fade:after{
+float:right
+}
+.centered-top-container.sticky{
+left:0;
+position:fixed;
+right:0;
+top:0;
+width:auto;
+z-index:50;
+-webkit-transition-property:opacity,-webkit-transform;
+transition-property:opacity,-webkit-transform;
+transition-property:transform,opacity;
+transition-property:transform,opacity,-webkit-transform;
+-webkit-transition-duration:.2s;
+transition-duration:.2s;
+-webkit-transition-timing-function:cubic-bezier(.4,0,.2,1);
+transition-timing-function:cubic-bezier(.4,0,.2,1)
+}
+.centered-top-placeholder{
+display:none
+}
+.collapsed-header .centered-top-placeholder{
+display:block
+}
+.centered-top-container .Header .replaced h1,.centered-top-placeholder .Header .replaced h1{
+display:none
+}
+.centered-top-container.sticky .Header .replaced h1{
+display:block
+}
+.centered-top-container.sticky .Header .header-widget{
+background:0 0
+}
+.centered-top-container.sticky .Header .header-image-wrapper{
+display:none
+}
+.centered-top-container img,.centered-top-placeholder img{
+max-width:100%
+}
+.collapsible{
+-webkit-transition:height .3s cubic-bezier(.4,0,.2,1);
+transition:height .3s cubic-bezier(.4,0,.2,1)
+}
+.collapsible,.collapsible>summary{
+display:block;
+overflow:hidden
+}
+.collapsible>:not(summary){
+display:none
+}
+.collapsible[open]>:not(summary){
+display:block
+}
+.collapsible:focus,.collapsible>summary:focus{
+outline:0
+}
+.collapsible>summary{
+cursor:pointer;
+display:block;
+padding:0
+}
+.collapsible:focus>summary,.collapsible>summary:focus{
+background-color:transparent
+}
+.collapsible>summary::-webkit-details-marker{
+display:none
+}
+.collapsible-title{
+-webkit-box-align:center;
+-webkit-align-items:center;
+-ms-flex-align:center;
+align-items:center;
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex
+}
+.collapsible-title .title{
+-webkit-box-flex:1;
+-webkit-flex:1 1 auto;
+-ms-flex:1 1 auto;
+flex:1 1 auto;
+-webkit-box-ordinal-group:1;
+-webkit-order:0;
+-ms-flex-order:0;
+order:0;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap
+}
+.collapsible-title .chevron-down,.collapsible[open] .collapsible-title .chevron-up{
+display:block
+}
+.collapsible-title .chevron-up,.collapsible[open] .collapsible-title .chevron-down{
+display:none
+}
+.flat-button{
+cursor:pointer;
+display:inline-block;
+font-weight:700;
+text-transform:uppercase;
+border-radius:2px;
+padding:8px;
+margin:-8px
+}
+.flat-icon-button{
+background:0 0;
+border:0;
+margin:0;
+outline:0;
+padding:0;
+margin:-12px;
+padding:12px;
+cursor:pointer;
+box-sizing:content-box;
+display:inline-block;
+line-height:0
+}
+.flat-icon-button,.flat-icon-button .splash-wrapper{
+border-radius:50%
+}
+.flat-icon-button .splash.animate{
+-webkit-animation-duration:.3s;
+animation-duration:.3s
+}
+.overflowable-container{
+max-height:28px;
+overflow:hidden;
+position:relative
+}
+.overflow-button{
+cursor:pointer
+}
+#overflowable-dim-overlay{
+background:0 0
+}
+.overflow-popup{
+box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+background-color:#01050c;
+left:0;
+max-width:calc(100% - 32px);
+position:absolute;
+top:0;
+visibility:hidden;
+z-index:101
+}
+.overflow-popup ul{
+list-style:none
+}
+.overflow-popup .tabs li,.overflow-popup li{
+display:block;
+height:auto
+}
+.overflow-popup .tabs li{
+padding-left:0;
+padding-right:0
+}
+.overflow-button.hidden,.overflow-popup .tabs li.hidden,.overflow-popup li.hidden{
+display:none
+}
+.search{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+line-height:24px;
+width:24px
+}
+.search.focused{
+width:100%
+}
+.search.focused .section{
+width:100%
+}
+.search form{
+z-index:101
+}
+.search h3{
+display:none
+}
+.search form{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+-webkit-box-flex:1;
+-webkit-flex:1 0 0;
+-ms-flex:1 0 0px;
+flex:1 0 0;
+border-bottom:solid 1px transparent;
+padding-bottom:8px
+}
+.search form>*{
+display:none
+}
+.search.focused form>*{
+display:block
+}
+.search .search-input label{
+display:none
+}
+.centered-top-placeholder.cloned .search form{
+z-index:30
+}
+.search.focused form{
+border-color:rgba(255, 255, 255, 0.54);
+position:relative;
+width:auto
+}
+.collapsed-header .centered-top-container .search.focused form{
+border-bottom-color:transparent
+}
+.search-expand{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto
+}
+.search-expand-text{
+display:none
+}
+.search-close{
+display:inline;
+vertical-align:middle
+}
+.search-input{
+-webkit-box-flex:1;
+-webkit-flex:1 0 1px;
+-ms-flex:1 0 1px;
+flex:1 0 1px
+}
+.search-input input{
+background:0 0;
+border:0;
+box-sizing:border-box;
+color:rgba(255, 255, 255, 0.54);
+display:inline-block;
+outline:0;
+width:calc(100% - 48px)
+}
+.search-input input.no-cursor{
+color:transparent;
+text-shadow:0 0 0 rgba(255, 255, 255, 0.54)
+}
+.collapsed-header .centered-top-container .search-action,.collapsed-header .centered-top-container .search-input input{
+color:rgba(255, 255, 255, 0.54)
+}
+.collapsed-header .centered-top-container .search-input input.no-cursor{
+color:transparent;
+text-shadow:0 0 0 rgba(255, 255, 255, 0.54)
+}
+.collapsed-header .centered-top-container .search-input input.no-cursor:focus,.search-input input.no-cursor:focus{
+outline:0
+}
+.search-focused>*{
+visibility:hidden
+}
+.search-focused .search,.search-focused .search-icon{
+visibility:visible
+}
+.search.focused .search-action{
+display:block
+}
+.search.focused .search-action:disabled{
+opacity:.3
+}
+.widget.Sharing .sharing-button{
+display:none
+}
+.widget.Sharing .sharing-buttons li{
+padding:0
+}
+.widget.Sharing .sharing-buttons li span{
+display:none
+}
+.post-share-buttons{
+position:relative
+}
+.centered-bottom .share-buttons .svg-icon-24,.share-buttons .svg-icon-24{
+fill:#ffffff
+}
+.sharing-open.touch-icon-button:active .touch-icon,.sharing-open.touch-icon-button:focus .touch-icon{
+background-color:transparent
+}
+.share-buttons{
+background-color:#01050c;
+border-radius:2px;
+box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+color:#ffffff;
+list-style:none;
+margin:0;
+padding:8px 0;
+position:absolute;
+top:-11px;
+min-width:200px;
+z-index:101
+}
+.share-buttons.hidden{
+display:none
+}
+.sharing-button{
+background:0 0;
+border:0;
+margin:0;
+outline:0;
+padding:0;
+cursor:pointer
+}
+.share-buttons li{
+margin:0;
+height:48px
+}
+.share-buttons li:last-child{
+margin-bottom:0
+}
+.share-buttons li .sharing-platform-button{
+box-sizing:border-box;
+cursor:pointer;
+display:block;
+height:100%;
+margin-bottom:0;
+padding:0 16px;
+position:relative;
+width:100%
+}
+.share-buttons li .sharing-platform-button:focus,.share-buttons li .sharing-platform-button:hover{
+background-color:rgba(128,128,128,.1);
+outline:0
+}
+.share-buttons li svg[class*=" sharing-"],.share-buttons li svg[class^=sharing-]{
+position:absolute;
+top:10px
+}
+.share-buttons li span.sharing-platform-button{
+position:relative;
+top:0
+}
+.share-buttons li .platform-sharing-text{
+display:block;
+font-size:16px;
+line-height:48px;
+white-space:nowrap
+}
+.share-buttons li .platform-sharing-text{
+margin-left:56px
+}
+.sidebar-container{
+background-color:#f7f7f7;
+max-width:284px;
+overflow-y:auto;
+-webkit-transition-property:-webkit-transform;
+transition-property:-webkit-transform;
+transition-property:transform;
+transition-property:transform,-webkit-transform;
+-webkit-transition-duration:.3s;
+transition-duration:.3s;
+-webkit-transition-timing-function:cubic-bezier(0,0,.2,1);
+transition-timing-function:cubic-bezier(0,0,.2,1);
+width:284px;
+z-index:101;
+-webkit-overflow-scrolling:touch
+}
+.sidebar-container .navigation{
+line-height:0;
+padding:16px
+}
+.sidebar-container .sidebar-back{
+cursor:pointer
+}
+.sidebar-container .widget{
+background:0 0;
+margin:0 16px;
+padding:16px 0
+}
+.sidebar-container .widget .title{
+color:rgba(255, 255, 255, 0.54);
+margin:0
+}
+.sidebar-container .widget ul{
+list-style:none;
+margin:0;
+padding:0
+}
+.sidebar-container .widget ul ul{
+margin-left:1em
+}
+.sidebar-container .widget li{
+font-size:16px;
+line-height:normal
+}
+.sidebar-container .widget+.widget{
+border-top:1px dashed rgba(255, 255, 255, 0.54)
+}
+.BlogArchive li{
+margin:16px 0
+}
+.BlogArchive li:last-child{
+margin-bottom:0
+}
+.Label li a{
+display:inline-block
+}
+.BlogArchive .post-count,.Label .label-count{
+float:right;
+margin-left:.25em
+}
+.BlogArchive .post-count::before,.Label .label-count::before{
+content:"("
+}
+.BlogArchive .post-count::after,.Label .label-count::after{
+content:")"
+}
+.widget.Translate .skiptranslate>div{
+display:block!important
+}
+.widget.Profile .profile-link{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex
+}
+.widget.Profile .team-member .default-avatar-wrapper,.widget.Profile .team-member .profile-img{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto;
+margin-right:1em
+}
+.widget.Profile .individual .profile-link{
+-webkit-box-orient:vertical;
+-webkit-box-direction:normal;
+-webkit-flex-direction:column;
+-ms-flex-direction:column;
+flex-direction:column
+}
+.widget.Profile .team .profile-link .profile-name{
+-webkit-align-self:center;
+-ms-flex-item-align:center;
+align-self:center;
+display:block;
+-webkit-box-flex:1;
+-webkit-flex:1 1 auto;
+-ms-flex:1 1 auto;
+flex:1 1 auto
+}
+.dim-overlay{
+background-color:rgba(0,0,0,.54);
+z-index:100
+}
+body.sidebar-visible{
+overflow-y:hidden
+}
+@media screen and (max-width:1439px){
+.sidebar-container{
+bottom:0;
+position:fixed;
+top:0;
+left:0;
+right:auto
+}
+.sidebar-container.sidebar-invisible{
+-webkit-transition-timing-function:cubic-bezier(.4,0,.6,1);
+transition-timing-function:cubic-bezier(.4,0,.6,1)
+}
+html[dir=ltr] .sidebar-container.sidebar-invisible{
+-webkit-transform:translateX(-284px);
+-ms-transform:translateX(-284px);
+transform:translateX(-284px)
+}
+html[dir=rtl] .sidebar-container.sidebar-invisible{
+-webkit-transform:translateX(284px);
+-ms-transform:translateX(284px);
+transform:translateX(284px)
+}
+}
+@media screen and (min-width:1440px){
+.sidebar-container{
+position:absolute;
+top:0;
+left:0;
+right:auto
+}
+.sidebar-container .navigation{
+display:none
+}
+}
+.dialog{
+box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+background:#01050c;
+box-sizing:border-box;
+color:#ffffff;
+padding:30px;
+position:fixed;
+text-align:center;
+width:calc(100% - 24px);
+z-index:101
+}
+.dialog input[type=email],.dialog input[type=text]{
+background-color:transparent;
+border:0;
+border-bottom:solid 1px rgba(255,255,255,.12);
+color:#ffffff;
+display:block;
+font-family:Lato, sans-serif;
+font-size:16px;
+line-height:24px;
+margin:auto;
+padding-bottom:7px;
+outline:0;
+text-align:center;
+width:100%
+}
+.dialog input[type=email]::-webkit-input-placeholder,.dialog input[type=text]::-webkit-input-placeholder{
+color:#ffffff
+}
+.dialog input[type=email]::-moz-placeholder,.dialog input[type=text]::-moz-placeholder{
+color:#ffffff
+}
+.dialog input[type=email]:-ms-input-placeholder,.dialog input[type=text]:-ms-input-placeholder{
+color:#ffffff
+}
+.dialog input[type=email]::-ms-input-placeholder,.dialog input[type=text]::-ms-input-placeholder{
+color:#ffffff
+}
+.dialog input[type=email]::placeholder,.dialog input[type=text]::placeholder{
+color:#ffffff
+}
+.dialog input[type=email]:focus,.dialog input[type=text]:focus{
+border-bottom:solid 2px #77e4ff;
+padding-bottom:6px
+}
+.dialog input.no-cursor{
+color:transparent;
+text-shadow:0 0 0 #ffffff
+}
+.dialog input.no-cursor:focus{
+outline:0
+}
+.dialog input.no-cursor:focus{
+outline:0
+}
+.dialog input[type=submit]{
+font-family:Lato, sans-serif
+}
+.dialog .goog-buttonset-default{
+color:#77e4ff
+}
+.subscribe-popup{
+max-width:364px
+}
+.subscribe-popup h3{
+color:#ffffff;
+font-size:1.8em;
+margin-top:0
+}
+.subscribe-popup .FollowByEmail h3{
+display:none
+}
+.subscribe-popup .FollowByEmail .follow-by-email-submit{
+color:#77e4ff;
+display:inline-block;
+margin:0 auto;
+margin-top:24px;
+width:auto;
+white-space:normal
+}
+.subscribe-popup .FollowByEmail .follow-by-email-submit:disabled{
+cursor:default;
+opacity:.3
+}
+@media (max-width:800px){
+.blog-name div.widget.Subscribe{
+margin-bottom:16px
+}
+body.item-view .blog-name div.widget.Subscribe{
+margin:8px auto 16px auto;
+width:100%
+}
+}
+body#layout .bg-photo,body#layout .bg-photo-overlay{
+display:none
+}
+body#layout .page_body{
+padding:0;
+position:relative;
+top:0
+}
+body#layout .page{
+display:inline-block;
+left:inherit;
+position:relative;
+vertical-align:top;
+width:540px
+}
+body#layout .centered{
+max-width:954px
+}
+body#layout .navigation{
+display:none
+}
+body#layout .sidebar-container{
+display:inline-block;
+width:40%
+}
+body#layout .hamburger-menu,body#layout .search{
+display:none
+}
+body{
+background-color:#01050c;
+color:#ffffff;
+font:normal 400 20px Lato, sans-serif;
+height:100%;
+margin:0;
+min-height:100vh
+}
+h1,h2,h3,h4,h5,h6{
+font-weight:400
+}
+a{
+color:#77e4ff;
+text-decoration:none
+}
+.dim-overlay{
+z-index:100
+}
+body.sidebar-visible .page_body{
+overflow-y:scroll
+}
+.widget .title{
+color:rgba(255, 255, 255, 0.54);
+font:normal 700 12px Lato, sans-serif
+}
+.extendable .show-less,.extendable .show-more{
+color:#77e4ff;
+font:normal 700 12px Lato, sans-serif;
+margin:12px -8px 0 -8px;
+text-transform:uppercase
+}
+.footer .widget,.main .widget{
+margin:50px 0
+}
+.main .widget .title{
+text-transform:uppercase
+}
+.inline-ad{
+display:block;
+margin-top:50px
+}
+.adsbygoogle{
+text-align:center
+}
+.page_body{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+-webkit-box-orient:vertical;
+-webkit-box-direction:normal;
+-webkit-flex-direction:column;
+-ms-flex-direction:column;
+flex-direction:column;
+min-height:100vh;
+position:relative;
+z-index:20
+}
+.page_body>*{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto
+}
+.page_body>#footer{
+margin-top:auto
+}
+.centered-bottom,.centered-top{
+margin:0 32px;
+max-width:100%
+}
+.centered-top{
+padding-bottom:12px;
+padding-top:12px
+}
+.sticky .centered-top{
+padding-bottom:0;
+padding-top:0
+}
+.centered-top-container,.centered-top-placeholder{
+background:#01050c
+}
+.centered-top{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+-webkit-flex-wrap:wrap;
+-ms-flex-wrap:wrap;
+flex-wrap:wrap;
+-webkit-box-pack:justify;
+-webkit-justify-content:space-between;
+-ms-flex-pack:justify;
+justify-content:space-between;
+position:relative
+}
+.sticky .centered-top{
+-webkit-flex-wrap:nowrap;
+-ms-flex-wrap:nowrap;
+flex-wrap:nowrap
+}
+.centered-top-container .svg-icon-24,.centered-top-placeholder .svg-icon-24{
+fill:rgba(255, 255, 255, 0.54)
+}
+.back-button-container,.hamburger-menu-container{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto;
+height:48px;
+-webkit-box-ordinal-group:2;
+-webkit-order:1;
+-ms-flex-order:1;
+order:1
+}
+.sticky .back-button-container,.sticky .hamburger-menu-container{
+-webkit-box-ordinal-group:2;
+-webkit-order:1;
+-ms-flex-order:1;
+order:1
+}
+.back-button,.hamburger-menu,.search-expand-icon{
+cursor:pointer;
+margin-top:0
+}
+.search{
+-webkit-box-align:start;
+-webkit-align-items:flex-start;
+-ms-flex-align:start;
+align-items:flex-start;
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto;
+height:48px;
+margin-left:24px;
+-webkit-box-ordinal-group:4;
+-webkit-order:3;
+-ms-flex-order:3;
+order:3
+}
+.search,.search.focused{
+width:auto
+}
+.search.focused{
+position:static
+}
+.sticky .search{
+display:none;
+-webkit-box-ordinal-group:5;
+-webkit-order:4;
+-ms-flex-order:4;
+order:4
+}
+.search .section{
+right:0;
+margin-top:12px;
+position:absolute;
+top:12px;
+width:0
+}
+.sticky .search .section{
+top:0
+}
+.search-expand{
+background:0 0;
+border:0;
+margin:0;
+outline:0;
+padding:0;
+color:#77e4ff;
+cursor:pointer;
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto;
+font:normal 700 12px Lato, sans-serif;
+text-transform:uppercase;
+word-break:normal
+}
+.search.focused .search-expand{
+visibility:hidden
+}
+.search .dim-overlay{
+background:0 0
+}
+.search.focused .section{
+max-width:400px
+}
+.search.focused form{
+border-color:rgba(255, 255, 255, 0.54);
+height:24px
+}
+.search.focused .search-input{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+-webkit-box-flex:1;
+-webkit-flex:1 1 auto;
+-ms-flex:1 1 auto;
+flex:1 1 auto
+}
+.search-input input{
+-webkit-box-flex:1;
+-webkit-flex:1 1 auto;
+-ms-flex:1 1 auto;
+flex:1 1 auto;
+font:normal 700 16px Lato, sans-serif
+}
+.search input[type=submit]{
+display:none
+}
+.subscribe-section-container{
+-webkit-box-flex:1;
+-webkit-flex:1 0 auto;
+-ms-flex:1 0 auto;
+flex:1 0 auto;
+margin-left:24px;
+-webkit-box-ordinal-group:3;
+-webkit-order:2;
+-ms-flex-order:2;
+order:2;
+text-align:right
+}
+.sticky .subscribe-section-container{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto;
+-webkit-box-ordinal-group:4;
+-webkit-order:3;
+-ms-flex-order:3;
+order:3
+}
+.subscribe-button{
+background:0 0;
+border:0;
+margin:0;
+outline:0;
+padding:0;
+color:#77e4ff;
+cursor:pointer;
+display:inline-block;
+font:normal 700 12px Lato, sans-serif;
+line-height:48px;
+margin:0;
+text-transform:uppercase;
+word-break:normal
+}
+.subscribe-popup h3{
+color:rgba(255, 255, 255, 0.54);
+font:normal 700 12px Lato, sans-serif;
+margin-bottom:24px;
+text-transform:uppercase
+}
+.subscribe-popup div.widget.FollowByEmail .follow-by-email-address{
+color:#ffffff;
+font:normal 700 12px Lato, sans-serif
+}
+.subscribe-popup div.widget.FollowByEmail .follow-by-email-submit{
+color:#77e4ff;
+font:normal 700 12px Lato, sans-serif;
+margin-top:24px;
+text-transform:uppercase
+}
+.blog-name{
+-webkit-box-flex:1;
+-webkit-flex:1 1 100%;
+-ms-flex:1 1 100%;
+flex:1 1 100%;
+-webkit-box-ordinal-group:5;
+-webkit-order:4;
+-ms-flex-order:4;
+order:4;
+overflow:hidden
+}
+.sticky .blog-name{
+-webkit-box-flex:1;
+-webkit-flex:1 1 auto;
+-ms-flex:1 1 auto;
+flex:1 1 auto;
+margin:0 12px;
+-webkit-box-ordinal-group:3;
+-webkit-order:2;
+-ms-flex-order:2;
+order:2
+}
+body.search-view .centered-top.search-focused .blog-name{
+display:none
+}
+.widget.Header h1{
+font:normal 300 18px Lato, sans-serif;
+margin:0;
+text-transform:uppercase
+}
+.widget.Header h1,.widget.Header h1 a{
+color:#ffffff
+}
+.widget.Header p{
+color:rgba(255, 255, 255, 0.54);
+font:normal 400 12px Lato, sans-serif;
+line-height:1.7
+}
+.sticky .widget.Header h1{
+font-size:16px;
+line-height:48px;
+overflow:hidden;
+overflow-wrap:normal;
+text-overflow:ellipsis;
+white-space:nowrap;
+word-wrap:normal
+}
+.sticky .widget.Header p{
+display:none
+}
+.sticky{
+box-shadow:0 1px 3px rgba(0, 0, 0, 0.1)
+}
+#page_list_top .widget.PageList{
+font:normal 700 14px Lato, sans-serif;
+line-height:28px
+}
+#page_list_top .widget.PageList .title{
+display:none
+}
+#page_list_top .widget.PageList .overflowable-contents{
+overflow:hidden
+}
+#page_list_top .widget.PageList .overflowable-contents ul{
+list-style:none;
+margin:0;
+padding:0
+}
+#page_list_top .widget.PageList .overflow-popup ul{
+list-style:none;
+margin:0;
+padding:0 20px
+}
+#page_list_top .widget.PageList .overflowable-contents li{
+display:inline-block
+}
+#page_list_top .widget.PageList .overflowable-contents li.hidden{
+display:none
+}
+#page_list_top .widget.PageList .overflowable-contents li:not(:first-child):before{
+color:rgba(255, 255, 255, 0.54);
+content:"\b7"
+}
+#page_list_top .widget.PageList .overflow-button a,#page_list_top .widget.PageList .overflow-popup li a,#page_list_top .widget.PageList .overflowable-contents li a{
+color:rgba(255, 255, 255, 0.54);
+font:normal 700 14px Lato, sans-serif;
+line-height:28px;
+text-transform:uppercase
+}
+#page_list_top .widget.PageList .overflow-popup li.selected a,#page_list_top .widget.PageList .overflowable-contents li.selected a{
+color:rgba(255, 255, 255, 0.54);
+font:normal 700 14px Lato, sans-serif;
+line-height:28px
+}
+#page_list_top .widget.PageList .overflow-button{
+display:inline
+}
+.sticky #page_list_top{
+display:none
+}
+body.homepage-view .hero-image.has-image{
+background:#01050c url(https://themes.googleusercontent.com/image?id=wltVPUckfSK9W7r7g9igwymWBEo331nLn9RtDt0jiRzLWLfYn17ncXNLjzi6gMZd0cE2mcKHh5eh) no-repeat scroll top center /* Credit: Matt Vince (http://www.offset.com/photos/223311) */;;
+background-attachment:scroll;
+background-color:#01050c;
+background-size:cover;
+height:62.5vw;
+max-height:75vh;
+min-height:200px;
+width:100%
+}
+.post-filter-message{
+background-color:#77e4ff;
+color:rgba(0, 0, 0, 0.54);
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+-webkit-flex-wrap:wrap;
+-ms-flex-wrap:wrap;
+flex-wrap:wrap;
+font:normal 700 12px Lato, sans-serif;
+-webkit-box-pack:justify;
+-webkit-justify-content:space-between;
+-ms-flex-pack:justify;
+justify-content:space-between;
+margin-top:50px;
+padding:18px
+}
+.post-filter-message .message-container{
+-webkit-box-flex:1;
+-webkit-flex:1 1 auto;
+-ms-flex:1 1 auto;
+flex:1 1 auto;
+min-width:0
+}
+.post-filter-message .home-link-container{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto
+}
+.post-filter-message .search-label,.post-filter-message .search-query{
+color:rgba(0, 0, 0, 0.87);
+font:normal 700 12px Lato, sans-serif;
+text-transform:uppercase
+}
+.post-filter-message .home-link,.post-filter-message .home-link a{
+color:rgba(0, 0, 0, 0.87);
+font:normal 700 12px Lato, sans-serif;
+text-transform:uppercase
+}
+.widget.FeaturedPost .thumb.hero-thumb{
+background-position:center;
+background-size:cover;
+height:360px
+}
+.widget.FeaturedPost .featured-post-snippet:before{
+content:"\2014"
+}
+.snippet-container,.snippet-fade{
+font:normal 400 14px Lato, sans-serif;
+line-height:23.8px
+}
+.snippet-container{
+max-height:166.6px;
+overflow:hidden
+}
+.snippet-fade{
+background:-webkit-linear-gradient(left,#01050c 0,#01050c 20%,rgba(1, 5, 12, 0) 100%);
+background:linear-gradient(to left,#01050c 0,#01050c 20%,rgba(1, 5, 12, 0) 100%);
+color:#ffffff
+}
+.post-sidebar{
+display:none
+}
+.widget.Blog .blog-posts .post-outer-container{
+width:100%
+}
+.no-posts{
+text-align:center
+}
+body.feed-view .widget.Blog .blog-posts .post-outer-container,body.item-view .widget.Blog .blog-posts .post-outer{
+margin-bottom:50px
+}
+.widget.Blog .post.no-featured-image,.widget.PopularPosts .post.no-featured-image{
+background-color:#77e4ff;
+padding:30px
+}
+.widget.Blog .post>.post-share-buttons-top{
+right:0;
+position:absolute;
+top:0
+}
+.widget.Blog .post>.post-share-buttons-bottom{
+bottom:0;
+right:0;
+position:absolute
+}
+.blog-pager{
+text-align:right
+}
+.blog-pager a{
+color:#77e4ff;
+font:normal 700 12px Lato, sans-serif;
+text-transform:uppercase
+}
+.blog-pager .blog-pager-newer-link,.blog-pager .home-link{
+display:none
+}
+.post-title{
+font:normal 400 20px Lato, sans-serif;
+margin:0;
+text-transform:uppercase
+}
+.post-title,.post-title a{
+color:#ffffff
+}
+.post.no-featured-image .post-title,.post.no-featured-image .post-title a{
+color:rgba(0, 0, 0, 0.87)
+}
+body.item-view .post-body-container:before{
+content:"\2014"
+}
+.post-body{
+color:#ffffff;
+font:normal 400 14px Lato, sans-serif;
+line-height:1.7
+}
+.post-body blockquote{
+color:#ffffff;
+font:normal 700 16px Lato, sans-serif;
+line-height:1.7;
+margin-left:0;
+margin-right:0
+}
+.post-body img{
+height:auto;
+max-width:100%
+}
+.post-body .tr-caption{
+color:#ffffff;
+font:normal 400 16px Lato, sans-serif;
+line-height:1.7
+}
+.snippet-thumbnail{
+position:relative
+}
+.snippet-thumbnail .post-header{
+background:#01050c;
+bottom:0;
+margin-bottom:0;
+padding-right:15px;
+padding-bottom:5px;
+padding-top:5px;
+position:absolute
+}
+.snippet-thumbnail img{
+width:100%
+}
+.post-footer,.post-header{
+margin:8px 0
+}
+body.item-view .widget.Blog .post-header{
+margin:0 0 16px 0
+}
+body.item-view .widget.Blog .post-footer{
+margin:50px 0 0 0
+}
+.widget.FeaturedPost .post-footer{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+-webkit-flex-wrap:wrap;
+-ms-flex-wrap:wrap;
+flex-wrap:wrap;
+-webkit-box-pack:justify;
+-webkit-justify-content:space-between;
+-ms-flex-pack:justify;
+justify-content:space-between
+}
+.widget.FeaturedPost .post-footer>*{
+-webkit-box-flex:0;
+-webkit-flex:0 1 auto;
+-ms-flex:0 1 auto;
+flex:0 1 auto
+}
+.widget.FeaturedPost .post-footer,.widget.FeaturedPost .post-footer a,.widget.FeaturedPost .post-footer button{
+line-height:1.7
+}
+.jump-link{
+margin:-8px
+}
+.post-header,.post-header a,.post-header button{
+color:rgba(255, 255, 255, 0.54);
+font:normal 700 12px Lato, sans-serif
+}
+.post.no-featured-image .post-header,.post.no-featured-image .post-header a,.post.no-featured-image .post-header button{
+color:rgba(0, 0, 0, 0.54)
+}
+.post-footer,.post-footer a,.post-footer button{
+color:#77e4ff;
+font:normal 700 12px Lato, sans-serif
+}
+.post.no-featured-image .post-footer,.post.no-featured-image .post-footer a,.post.no-featured-image .post-footer button{
+color:rgba(0, 0, 0, 0.87)
+}
+body.item-view .post-footer-line{
+line-height:2.3
+}
+.byline{
+display:inline-block
+}
+.byline .flat-button{
+text-transform:none
+}
+.post-header .byline:not(:last-child):after{
+content:"\b7"
+}
+.post-header .byline:not(:last-child){
+margin-right:0
+}
+.byline.post-labels a{
+display:inline-block;
+word-break:break-all
+}
+.byline.post-labels a:not(:last-child):after{
+content:","
+}
+.byline.reactions .reactions-label{
+line-height:22px;
+vertical-align:top
+}
+.post-share-buttons{
+margin-left:0
+}
+.share-buttons{
+background-color:#252525;
+border-radius:0;
+box-shadow:0 1px 1px 1px rgba(0, 0, 0, 0.1);
+color:rgba(255, 255, 255, 0.87);
+font:normal 400 16px Lato, sans-serif
+}
+.share-buttons .svg-icon-24{
+fill:#77e4ff
+}
+#comment-holder .continue{
+display:none
+}
+#comment-editor{
+margin-bottom:20px;
+margin-top:20px
+}
+.widget.Attribution,.widget.Attribution .copyright,.widget.Attribution .copyright a,.widget.Attribution .image-attribution,.widget.Attribution .image-attribution a,.widget.Attribution a{
+color:rgba(255, 255, 255, 0.54);
+font:normal 700 12px Lato, sans-serif
+}
+.widget.Attribution svg{
+fill:rgba(255, 255, 255, 0.54)
+}
+.widget.Attribution .blogger a{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+-webkit-align-content:center;
+-ms-flex-line-pack:center;
+align-content:center;
+-webkit-box-pack:center;
+-webkit-justify-content:center;
+-ms-flex-pack:center;
+justify-content:center;
+line-height:24px
+}
+.widget.Attribution .blogger svg{
+margin-right:8px
+}
+.widget.Profile ul{
+list-style:none;
+padding:0
+}
+.widget.Profile .individual .default-avatar-wrapper,.widget.Profile .individual .profile-img{
+border-radius:50%;
+display:inline-block;
+height:120px;
+width:120px
+}
+.widget.Profile .individual .profile-data a,.widget.Profile .team .profile-name{
+color:#ffffff;
+font:normal 300 20px Lato, sans-serif;
+text-transform:none
+}
+.widget.Profile .individual dd{
+color:#ffffff;
+font:normal 400 20px Lato, sans-serif;
+margin:0 auto
+}
+.widget.Profile .individual .profile-link,.widget.Profile .team .visit-profile{
+color:#77e4ff;
+font:normal 700 12px Lato, sans-serif;
+text-transform:uppercase
+}
+.widget.Profile .team .default-avatar-wrapper,.widget.Profile .team .profile-img{
+border-radius:50%;
+float:left;
+height:40px;
+width:40px
+}
+.widget.Profile .team .profile-link .profile-name-wrapper{
+-webkit-box-flex:1;
+-webkit-flex:1 1 auto;
+-ms-flex:1 1 auto;
+flex:1 1 auto
+}
+.widget.Label li,.widget.Label span.label-size{
+color:#77e4ff;
+display:inline-block;
+font:normal 700 12px Lato, sans-serif;
+word-break:break-all
+}
+.widget.Label li:not(:last-child):after,.widget.Label span.label-size:not(:last-child):after{
+content:","
+}
+.widget.PopularPosts .post{
+margin-bottom:50px
+}
+#comments{
+border-top:none;
+padding:0
+}
+#comments .comment .comment-footer,#comments .comment .comment-header,#comments .comment .comment-header .datetime,#comments .comment .comment-header .datetime a{
+color:rgba(255, 255, 255, 0.54);
+font:normal 700 12px Lato, sans-serif
+}
+#comments .comment .comment-author,#comments .comment .comment-author a,#comments .comment .comment-header .user,#comments .comment .comment-header .user a{
+color:#ffffff;
+font:normal 700 12px Lato, sans-serif
+}
+#comments .comment .comment-body,#comments .comment .comment-content{
+color:#ffffff;
+font:normal 400 16px Lato, sans-serif
+}
+#comments .comment .comment-actions,#comments .footer,#comments .footer a,#comments .loadmore,#comments .paging-control{
+color:#77e4ff;
+font:normal 700 12px Lato, sans-serif;
+text-transform:uppercase
+}
+#commentsHolder{
+border-bottom:none;
+border-top:none
+}
+#comments .comment-form h4{
+position:absolute;
+clip:rect(1px,1px,1px,1px);
+padding:0;
+border:0;
+height:1px;
+width:1px;
+overflow:hidden
+}
+.sidebar-container{
+background-color:#01050c;
+color:rgba(255, 255, 255, 0.54);
+font:normal 700 14px Lato, sans-serif;
+min-height:100%
+}
+html[dir=ltr] .sidebar-container{
+box-shadow:1px 0 3px rgba(0, 0, 0, 0.1)
+}
+html[dir=rtl] .sidebar-container{
+box-shadow:-1px 0 3px rgba(0, 0, 0, 0.1)
+}
+.sidebar-container a{
+color:#77e4ff
+}
+.sidebar-container .svg-icon-24{
+fill:rgba(255, 255, 255, 0.54)
+}
+.sidebar-container .widget{
+margin:0;
+margin-left:40px;
+padding:40px;
+padding-left:0
+}
+.sidebar-container .widget+.widget{
+border-top:1px solid rgba(255, 255, 255, 0.54)
+}
+.sidebar-container .widget .title{
+color:rgba(255, 255, 255, 0.54);
+font:normal 700 16px Lato, sans-serif
+}
+.sidebar-container .widget ul li,.sidebar-container .widget.BlogArchive #ArchiveList li{
+font:normal 700 14px Lato, sans-serif;
+margin:1em 0 0 0
+}
+.sidebar-container .BlogArchive .post-count,.sidebar-container .Label .label-count{
+float:none
+}
+.sidebar-container .Label li a{
+display:inline
+}
+.sidebar-container .widget.Profile .default-avatar-wrapper .avatar-icon{
+border-color:#ffffff;
+fill:#ffffff
+}
+.sidebar-container .widget.Profile .individual{
+text-align:center
+}
+.sidebar-container .widget.Profile .individual dd:before{
+content:"\2014";
+display:block
+}
+.sidebar-container .widget.Profile .individual .profile-data a,.sidebar-container .widget.Profile .team .profile-name{
+color:#ffffff;
+font:normal 300 20px Lato, sans-serif
+}
+.sidebar-container .widget.Profile .individual dd{
+color:rgba(255, 255, 255, 0.87);
+font:normal 400 12px Lato, sans-serif;
+margin:0 30px
+}
+.sidebar-container .widget.Profile .individual .profile-link,.sidebar-container .widget.Profile .team .visit-profile{
+color:#77e4ff;
+font:normal 700 14px Lato, sans-serif
+}
+.sidebar-container .snippet-fade{
+background:-webkit-linear-gradient(left,#01050c 0,#01050c 20%,rgba(1, 5, 12, 0) 100%);
+background:linear-gradient(to left,#01050c 0,#01050c 20%,rgba(1, 5, 12, 0) 100%)
+}
+@media screen and (min-width:640px){
+.centered-bottom,.centered-top{
+margin:0 auto;
+width:576px
+}
+.centered-top{
+-webkit-flex-wrap:nowrap;
+-ms-flex-wrap:nowrap;
+flex-wrap:nowrap;
+padding-bottom:24px;
+padding-top:36px
+}
+.blog-name{
+-webkit-box-flex:1;
+-webkit-flex:1 1 auto;
+-ms-flex:1 1 auto;
+flex:1 1 auto;
+min-width:0;
+-webkit-box-ordinal-group:3;
+-webkit-order:2;
+-ms-flex-order:2;
+order:2
+}
+.sticky .blog-name{
+margin:0
+}
+.back-button-container,.hamburger-menu-container{
+margin-right:36px;
+-webkit-box-ordinal-group:2;
+-webkit-order:1;
+-ms-flex-order:1;
+order:1
+}
+.search{
+margin-left:36px;
+-webkit-box-ordinal-group:5;
+-webkit-order:4;
+-ms-flex-order:4;
+order:4
+}
+.search .section{
+top:36px
+}
+.sticky .search{
+display:block
+}
+.subscribe-section-container{
+-webkit-box-flex:0;
+-webkit-flex:0 0 auto;
+-ms-flex:0 0 auto;
+flex:0 0 auto;
+margin-left:36px;
+-webkit-box-ordinal-group:4;
+-webkit-order:3;
+-ms-flex-order:3;
+order:3
+}
+.subscribe-button{
+font:normal 700 14px Lato, sans-serif;
+line-height:48px
+}
+.subscribe-popup h3{
+font:normal 700 14px Lato, sans-serif
+}
+.subscribe-popup div.widget.FollowByEmail .follow-by-email-address{
+font:normal 700 14px Lato, sans-serif
+}
+.subscribe-popup div.widget.FollowByEmail .follow-by-email-submit{
+font:normal 700 14px Lato, sans-serif
+}
+.widget .title{
+font:normal 700 14px Lato, sans-serif
+}
+.widget.Blog .post.no-featured-image,.widget.PopularPosts .post.no-featured-image{
+padding:65px
+}
+.post-title{
+font:normal 400 24px Lato, sans-serif
+}
+.blog-pager a{
+font:normal 700 14px Lato, sans-serif
+}
+.widget.Header h1{
+font:normal 300 36px Lato, sans-serif
+}
+.sticky .widget.Header h1{
+font-size:24px
+}
+}
+@media screen and (min-width:1162px){
+.centered-bottom,.centered-top{
+width:922px
+}
+.back-button-container,.hamburger-menu-container{
+margin-right:48px
+}
+.search{
+margin-left:48px
+}
+.search-expand{
+font:normal 700 14px Lato, sans-serif;
+line-height:48px
+}
+.search-expand-text{
+display:block
+}
+.search-expand-icon{
+display:none
+}
+.subscribe-section-container{
+margin-left:48px
+}
+.post-filter-message{
+font:normal 700 14px Lato, sans-serif
+}
+.post-filter-message .search-label,.post-filter-message .search-query{
+font:normal 700 14px Lato, sans-serif
+}
+.post-filter-message .home-link{
+font:normal 700 14px Lato, sans-serif
+}
+.widget.Blog .blog-posts .post-outer-container{
+width:451px
+}
+body.item-view .widget.Blog .blog-posts .post-outer-container{
+width:100%
+}
+body.item-view .widget.Blog .blog-posts .post-outer{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex
+}
+#comments,body.item-view .post-outer-container .inline-ad,body.item-view .widget.PopularPosts{
+margin-left:220px;
+width:682px
+}
+.post-sidebar{
+box-sizing:border-box;
+display:block;
+font:normal 700 14px Lato, sans-serif;
+padding-right:20px;
+width:220px
+}
+.post-sidebar-item{
+margin-bottom:30px
+}
+.post-sidebar-item ul{
+list-style:none;
+padding:0
+}
+.post-sidebar-item .sharing-button{
+color:#77e4ff;
+cursor:pointer;
+display:inline-block;
+font:normal 700 14px Lato, sans-serif;
+line-height:normal;
+word-break:normal
+}
+.post-sidebar-labels li{
+margin-bottom:8px
+}
+body.item-view .widget.Blog .post{
+width:682px
+}
+.widget.Blog .post.no-featured-image,.widget.PopularPosts .post.no-featured-image{
+padding:100px 65px
+}
+.page .widget.FeaturedPost .post-content{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex;
+-webkit-box-pack:justify;
+-webkit-justify-content:space-between;
+-ms-flex-pack:justify;
+justify-content:space-between
+}
+.page .widget.FeaturedPost .thumb-link{
+display:-webkit-box;
+display:-webkit-flex;
+display:-ms-flexbox;
+display:flex
+}
+.page .widget.FeaturedPost .thumb.hero-thumb{
+height:auto;
+min-height:300px;
+width:451px
+}
+.page .widget.FeaturedPost .post-content.has-featured-image .post-text-container{
+width:425px
+}
+.page .widget.FeaturedPost .post-content.no-featured-image .post-text-container{
+width:100%
+}
+.page .widget.FeaturedPost .post-header{
+margin:0 0 8px 0
+}
+.page .widget.FeaturedPost .post-footer{
+margin:8px 0 0 0
+}
+.post-body{
+font:normal 400 16px Lato, sans-serif;
+line-height:1.7
+}
+.post-body blockquote{
+font:normal 700 24px Lato, sans-serif;
+line-height:1.7
+}
+.snippet-container,.snippet-fade{
+font:normal 400 16px Lato, sans-serif;
+line-height:27.2px
+}
+.snippet-container{
+max-height:326.4px
+}
+.widget.Profile .individual .profile-data a,.widget.Profile .team .profile-name{
+font:normal 300 24px Lato, sans-serif
+}
+.widget.Profile .individual .profile-link,.widget.Profile .team .visit-profile{
+font:normal 700 14px Lato, sans-serif
+}
+}
+@media screen and (min-width:1440px){
+body{
+position:relative
+}
+.page_body{
+margin-left:284px
+}
+.sticky .centered-top{
+padding-left:284px
+}
+.hamburger-menu-container{
+display:none
+}
+.sidebar-container{
+overflow:visible;
+z-index:32
+}
+}
+
+--></style>
+<style id="template-skin-1" type="text/css"><!--
+body#layout .hidden,
+body#layout .invisible {
+display: inherit;
+}
+body#layout .page {
+width: 60%;
+}
+body#layout.ltr .page {
+float: right;
+}
+body#layout.rtl .page {
+float: left;
+}
+body#layout .sidebar-container {
+width: 40%;
+}
+body#layout.ltr .sidebar-container {
+float: left;
+}
+body#layout.rtl .sidebar-container {
+float: right;
+}
+--></style>
+<script async="async" src="./bus_files/imagesloaded-3.1.8.min.js.descarga"></script>
+<script async="async" src="./bus_files/masonry.pkgd.min.js.descarga"></script>
+<script async="async" src="./bus_files/clipboard.min.js.descarga"></script>
+<style>
+    body.homepage-view .hero-image.has-image {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=wltVPUckfSK9W7r7g9igwymWBEo331nLn9RtDt0jiRzLWLfYn17ncXNLjzi6gMZd0cE2mcKHh5eh);}
+    
+@media (max-width: 320px) { body.homepage-view .hero-image.has-image {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=wltVPUckfSK9W7r7g9igwymWBEo331nLn9RtDt0jiRzLWLfYn17ncXNLjzi6gMZd0cE2mcKHh5eh&options=w320);}}
+@media (max-width: 640px) and (min-width: 321px) { body.homepage-view .hero-image.has-image {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=wltVPUckfSK9W7r7g9igwymWBEo331nLn9RtDt0jiRzLWLfYn17ncXNLjzi6gMZd0cE2mcKHh5eh&options=w640);}}
+@media (max-width: 800px) and (min-width: 641px) { body.homepage-view .hero-image.has-image {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=wltVPUckfSK9W7r7g9igwymWBEo331nLn9RtDt0jiRzLWLfYn17ncXNLjzi6gMZd0cE2mcKHh5eh&options=w800);}}
+@media (max-width: 1024px) and (min-width: 801px) { body.homepage-view .hero-image.has-image {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=wltVPUckfSK9W7r7g9igwymWBEo331nLn9RtDt0jiRzLWLfYn17ncXNLjzi6gMZd0cE2mcKHh5eh&options=w1024);}}
+@media (max-width: 1440px) and (min-width: 1025px) { body.homepage-view .hero-image.has-image {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=wltVPUckfSK9W7r7g9igwymWBEo331nLn9RtDt0jiRzLWLfYn17ncXNLjzi6gMZd0cE2mcKHh5eh&options=w1440);}}
+@media (max-width: 1680px) and (min-width: 1441px) { body.homepage-view .hero-image.has-image {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=wltVPUckfSK9W7r7g9igwymWBEo331nLn9RtDt0jiRzLWLfYn17ncXNLjzi6gMZd0cE2mcKHh5eh&options=w1680);}}
+@media (max-width: 1920px) and (min-width: 1681px) { body.homepage-view .hero-image.has-image {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=wltVPUckfSK9W7r7g9igwymWBEo331nLn9RtDt0jiRzLWLfYn17ncXNLjzi6gMZd0cE2mcKHh5eh&options=w1920);}}
+/* Last tag covers anything over one higher than the previous max-size cap. */
+@media (min-width: 1921px) { body.homepage-view .hero-image.has-image {background-image:url(https\:\/\/themes.googleusercontent.com\/image?id=wltVPUckfSK9W7r7g9igwymWBEo331nLn9RtDt0jiRzLWLfYn17ncXNLjzi6gMZd0cE2mcKHh5eh&options=w2560);}}
+  </style>
+<link href="./bus_files/authorization.css" media="all" onload="if(media!=&#39;all&#39;)media=&#39;all&#39;" rel="stylesheet"><noscript><link href='https://www.blogger.com/dyn-css/authorization.css?targetBlogID=5828396875459327552&amp;zx=c418800f-6e62-4be6-9530-98a7192c48de' rel='stylesheet'/></noscript>
+
+</head>
+<body class="post-view item-view version-1-3-3 variant-fancy_neon" data-js-state="loaded">
+<a class="skip-navigation" href="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html#main" tabindex="0">
+Ir al contenido principal
+</a>
+<div class="page">
+<div class="page_body">
+<div class="main-page-body-content">
+<header class="centered-top-container animating" role="banner" style="">
+<div class="centered-top">
+<div class="back-button-container">
+<a href="http://arquidepcs.blogspot.com/">
+<svg class="svg-icon-24 touch-icon back-button rtl-reversible-icon">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_arrow_back_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</a>
+</div>
+<div class="search">
+<button aria-label="Buscar" class="search-expand touch-icon-button">
+<div class="search-expand-text">Buscar</div>
+<svg class="svg-icon-24 touch-icon search-expand-icon">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_search_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</button>
+<div class="section" id="search_top" name="Search (Top)"><div class="widget BlogSearch" data-version="2" id="BlogSearch1">
+<h3 class="title">
+Buscar este blog
+</h3>
+<div class="widget-content" role="search">
+<form action="http://arquidepcs.blogspot.com/search" target="_top">
+<div class="search-input">
+<input aria-label="Buscar este blog" autocomplete="off" name="q" placeholder="Buscar este blog" value="">
+</div>
+<label>
+<input type="submit">
+<svg class="svg-icon-24 touch-icon search-icon">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_search_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</label>
+</form>
+</div>
+</div></div>
+<div class="dim-overlay hidden"></div></div>
+<div class="blog-name">
+<div class="section" id="header" name="Encabezado"><div class="widget Header" data-version="2" id="Header1">
+<div class="header-widget">
+<div>
+<h1>
+<a href="http://arquidepcs.blogspot.com/">
+Arquitectura de computadoras
+</a>
+</h1>
+</div>
+<p>
+</p>
+</div>
+</div></div>
+<nav role="navigation">
+<div class="no-items section" id="page_list_top" name="Lista de páginas (arriba)">
+</div>
+</nav>
+</div>
+</div>
+</header><div class="centered-top-placeholder"></div>
+
+<div class="hero-image has-image"></div>
+<main class="centered-bottom" id="main" role="main" tabindex="-1">
+<div class="main section" id="page_body" name="Cuerpo de la página">
+<div class="widget Blog" data-version="2" id="Blog1">
+<div class="blog-posts hfeed container">
+<div class="post-outer-container">
+<div class="post-outer">
+<div class="post-sidebar">
+<div class="post-sidebar-item post-share-buttons">
+<div aria-owns="sharing-popup-Blog1-byline-8624419039832350185" class="sharing" data-title="">
+<button aria-controls="sharing-popup-Blog1-byline-8624419039832350185" aria-label="Compartir" class="sharing-button touch-icon-button" id="sharing-button-Blog1-byline-8624419039832350185" role="button" aria-expanded="false" aria-haspopup="true">
+Compartir
+</button>
+<div class="share-buttons-container">
+<ul aria-hidden="true" aria-label="Compartir" class="share-buttons hidden" id="sharing-popup-Blog1-byline-8624419039832350185" role="menu">
+<li>
+<span aria-label="Obtener vínculo" class="sharing-platform-button sharing-element-link" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8624419039832350185&amp;target=" data-url="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" role="menuitem" tabindex="-1" title="Obtener vínculo">
+<svg class="svg-icon-24 touch-icon sharing-link">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_link_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Obtener vínculo</span>
+</span>
+</li>
+<li>
+<span aria-label="Compartir en Facebook" class="sharing-platform-button sharing-element-facebook" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8624419039832350185&amp;target=facebook" data-url="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" role="menuitem" tabindex="-1" title="Compartir en Facebook">
+<svg class="svg-icon-24 touch-icon sharing-facebook">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_facebook_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Facebook</span>
+</span>
+</li>
+<li>
+<span aria-label="Compartir en Twitter" class="sharing-platform-button sharing-element-twitter" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8624419039832350185&amp;target=twitter" data-url="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" role="menuitem" tabindex="-1" title="Compartir en Twitter">
+<svg class="svg-icon-24 touch-icon sharing-twitter">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_twitter_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Twitter</span>
+</span>
+</li>
+<li>
+<span aria-label="Compartir en Pinterest" class="sharing-platform-button sharing-element-pinterest" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8624419039832350185&amp;target=pinterest" data-url="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" role="menuitem" tabindex="-1" title="Compartir en Pinterest">
+<svg class="svg-icon-24 touch-icon sharing-pinterest">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_pinterest_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Pinterest</span>
+</span>
+</li>
+<li>
+<span aria-label="Correo electrónico" class="sharing-platform-button sharing-element-email" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8624419039832350185&amp;target=email" data-url="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" role="menuitem" tabindex="-1" title="Correo electrónico">
+<svg class="svg-icon-24 touch-icon sharing-email">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_email_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Correo electrónico</span>
+</span>
+</li>
+<li aria-hidden="true" class="hidden">
+<span aria-label="Compartir en otras apps" class="sharing-platform-button sharing-element-other" data-url="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" role="menuitem" tabindex="-1" title="Compartir en otras apps">
+<svg class="svg-icon-24 touch-icon sharing-sharingOther">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_more_horiz_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Otras apps</span>
+</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="post">
+<script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html"
+  },
+  "headline": "3.1  CPU, Controlador del bus, Puertos de E/S, controlador de interrupciones, de DMA, Circuitos de temporizacion, controladores de video","description": "Ahora hablaremos acerca de los controladores del bus, que se encargan de dirigir las diferentes funciones de los buses, de los puertos de E/...","datePublished": "2015-12-10T21:29:00-08:00",
+  "dateModified": "2015-12-11T05:26:32-08:00","image": {
+    "@type": "ImageObject","url": "http://4.bp.blogspot.com/-dXycVn8lyns/VmpntZ5PCyI/AAAAAAAAAkU/skEeHOECp-0/w1200-h630-p-k-no-nu/3780074932_3886181808.jpg",
+    "height": 630,
+    "width": 1200},"publisher": {
+    "@type": "Organization",
+    "name": "Blogger",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://lh3.googleusercontent.com/ULB6iBuCeTVvSjjjU1A-O8e9ZpVba6uvyhtiWRti_rBAs9yMYOFBujxriJRZ-A=h60",
+      "width": 206,
+      "height": 60
+    }
+  },"author": {
+    "@type": "Person",
+    "name": "Unknown"
+  }
+}</script>
+<div class="post-header">
+<div class="post-header-line-1">
+<span class="byline post-timestamp">
+<meta content="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html">
+<a class="timestamp-link" href="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" rel="bookmark" title="permanent link">
+<time class="published" datetime="2015-12-10T21:29:00-08:00" title="2015-12-10T21:29:00-08:00">
+diciembre 10, 2015
+</time>
+</a>
+</span>
+</div>
+</div>
+<a name="8624419039832350185"></a>
+<h3 class="post-title entry-title">
+3.1  CPU, Controlador del bus, Puertos de E/S, controlador de interrupciones, de DMA, Circuitos de temporizacion, controladores de video
+</h3>
+<div class="post-body-container">
+<div class="post-body entry-content float-container" id="post-body-8624419039832350185">
+Ahora hablaremos acerca de los controladores del bus, que se encargan de dirigir las diferentes funciones de los buses, de los puertos de E/S (Entrada/Salida), que son los puertos que permiten a la computadora interactuar con nosotros, por ejemplo, el teclado, la pantalla, etc.<br>
+Además de los controladores de interrupciones, que gestionan a las interrupciones.<br>
+<br>
+<h2 style="text-align: center;">
+CPU</h2>
+<div>
+<br></div>
+La unidad central de procesamiento o CPU (por el acrónimo en inglés de central processing unit), o simplemente el procesador o microprocesador, es el componente del computador y otros dispositivos programables, que interpreta las instrucciones contenidas en los programas y procesa los datos. Los CPU proporcionan la característica fundamental de la computadora digital (la programabilidad) y son uno de los componentes necesarios encontrados en las computadoras de cualquier tiempo, junto con el almacenamiento primario y los dispositivos de entrada/salida. Se conoce como microprocesador el CPU que es manufacturado con circuitos integrados. Desde mediados de los años 1970, los microprocesadores de un solo chip han reemplazado casi totalmente todos los tipos de CPU, y hoy en día, el término "CPU" es aplicado usualmente a todos los microprocesadores.<br>
+<br>
+La expresión "unidad central de proceso" es, en términos generales, una descripción de una cierta clase de máquinas de lógica que pueden ejecutar complejos programas de computadora. Esta amplia definición puede fácilmente ser aplicada a muchos de los primeros computadores que existieron mucho antes que el término "CPU" estuviera en amplio uso. Sin embargo, el término en sí mismo y su acrónimo han estado en uso en la industria de la informática por lo menos desde el principio de los años 1960 . La forma, el diseño y la implementación de los CPU ha cambiado drásticamente desde los primeros ejemplos, pero su operación fundamental ha permanecido bastante similar. Los primeros CPU fueron diseñados a la medida como parte de una computadora más grande, generalmente una computadora única en su especie. Sin embargo, este costoso método de diseñar los CPU a la medida, para una aplicación particular, ha desaparecido en gran parte y se ha sustituido por el desarrollo de clases de procesadores baratos y estandarizados adaptados para uno o muchos propósitos. Esta tendencia de estandarización comenzó generalmente en la era de los transistores discretos, computadoras centrales, y microcomputadoras, y fue acelerada rápidamente con la popularización del circuito integrado (IC), éste ha permitido que sean diseñados y fabricados CPU más complejos en espacios pequeños (en la orden de milímetros). Tanto la miniaturización como la estandarización de los CPU han aumentado la presencia de estos dispositivos digitales en la vida moderna mucho más allá de las aplicaciones limitadas de máquinas de computación dedicadas. Los microprocesadores modernos aparecen en todo, desde automóviles, televisores, neveras, calculadoras, aviones, hasta teléfonos móviles o celulares, juguetes, entre otros.<br>
+<div>
+<br>
+<br>
+<div>
+<br></div>
+<br></div>
+<div>
+<br>
+<h2 style="text-align: center;">
+Controlador de bus</h2>
+<div>
+<br>
+<br>
+<br>
+<section id="pf_text_29" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">El Bus es la vía a través de la que se van a transmitir y recibir todas las comunicaciones, tanto internas como externas, del sistema informático. El bus es solamente un Dispositivo de Transferencia de Información entre los componentes conectados a él, no almacena</section><section id="pf_text_30" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">información alguna en ningún momento. Los datos, en forma de señal eléctrica, sólo permanecen en el bus el tiempo que necesitan en recorrer la distancia entre los dos componentes implicados en la transferencia. En una unidad central de Bus de sistema típica el bus se subdivide en tres buses o grupos de líneas: Bus de Control. Bus de Datos. Direcciones.<br style="box-sizing: border-box;"><b><br style="box-sizing: border-box;">Bus de Direcciones</b><br style="box-sizing: border-box;">Es un canal de comunicaciones constituido por líneas que apuntan a la dirección de memoria que ocupa o va a ocupar la información a tratar. Una vez direccionada la posición, la información, almacenada en la memoria hasta ese momento, pasará a la CPU a través del bus de datos. Para determinar la cantidad de memoria directamente accesible por la CPU, hay que tener en cuenta el número de líneas que integran el bus de direcciones, ya que cuanto mayor sea el número de líneas, mayor será la cantidad de direcciones y, por tanto, de memoria a manejar por el sistema informático.<br style="box-sizing: border-box;"><br style="box-sizing: border-box;"><b> Bus de Datos</b><br style="box-sizing: border-box;">El bus de datos es el medio por el que se transmite la instrucción o dato apuntado por el bus de direcciones. Es usado para realizar el intercambio de instrucciones y datos tanto internamente, entre los diferentes componentes del sistema informático, como externamente, entre el sistema informático y los diferentes subsistemas periféricos que se encuentran en el exterior, una de las características principales de una computadora es el número de bits que puede transferir el bus de datos (16, 32, 64, etc.). Cuanto mayor sea este número, mayor será la cantidad de información que se puede manejar</section><section id="pf_text_31" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">al mismo tiempo.<br style="box-sizing: border-box;"><br style="box-sizing: border-box;"><b>Bus de Control</b><br style="box-sizing: border-box;">Es un número variable de líneas a través de las que se controlan las unidades complementarías. El número de líneas de control dependerá directamente de la cantidad que pueda soportar el tipo de CPU utilizada y de su capacidad de direccionamiento de información.</section></div>
+<div>
+<br>
+<br>
+<h2 style="text-align: center;">
+Puertos de Entrada/Salida (E/S)</h2>
+<div>
+<br>
+<br>
+<br>
+<section id="pf_text_31" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">En computación, entrada/salida, también abreviado E/S o I/O (del original en inglés input/output), es la colección de interfaces que usan las distintas unidades funcionales (subsistemas) de un sistema de procesamiento de información para comunicarse unas con otras, o las señales (información) enviadas a través de esas interfaces. Las entradas son las señales recibidas por la unidad, mientras que las salidas son las señales enviadas por ésta. El término puede ser usado para describir una acción; "realizar una entrada/salida" se refiere a ejecutar una operación de entrada o de salida. Los dispositivos de E/S los usa una persona u otro sistema para comunicarse con una computadora. De hecho, a los teclados y ratones se los considera dispositivos de entrada de una computadora, mientras que los monitores e impresoras son vistos como dispositivos de salida de una computadora. Los dispositivos típicos para la comunicación entre computadoras realizan las dos operaciones, tanto entrada como salida, y entre otros se encuentran los módems y tarjetas de red. Es importante notar que la designación de un dispositivo, sea de entrada o de salida, cambia al cambiar la perspectiva desde el que se lo ve. Los teclados y ratones toman como</section><section id="pf_text_32" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">entrada el movimiento físico que el usuario produce como salida y lo convierten a una señal eléctrica que la computadora pueda entender. La salida de estos dispositivos son una entrada para la<br style="box-sizing: border-box;">computadora. De manera análoga, los monitores e impresoras toman como entrada las señales que la computadora produce como salida. Luego, convierten esas señales en representaciones inteligibles que puedan ser interpretadas por el usuario. La interpretación será, por ejemplo, por medio de la vista, que funciona como entrada. En arquitectura de computadoras, a la combinación de una unidad central de procesamiento (CPU) y memoria principal (aquélla que la CPU puede escribir o leer directamente mediante instrucciones individuales) se la considera el corazón de la computadora y cualquier movimiento de información desde o hacia ese conjunto se lo considera entrada/salida. La CPU y su circuitería complementaria proveen métodos de entrada/salida que se usan en programación de bajo nivel para la implementación de controladores de dispositivos. Los sistemas operativos y lenguajes de programación de más alto nivel brindan conceptos y primitivas de entrada/salida distintos y más abstractos. Por ejemplo, un sistema operativo brinda aplicativos que manejan el concepto de archivos. El lenguaje de programación C define funciones que les permiten a sus programas realizar E/S a través de streams, es decir, les permiten leer datos desde y escribir datos hacia sus programas. Una alternativa para las funciones primitivas especiales es la mónada de E/S, que permite que los</section><section id="pf_text_33" style="background-color: white; box-sizing: border-box;"><span style="color: #333333; font-family: &quot;open sans&quot; , sans-serif;"><span style="font-size: 15px; line-height: 23.25px;">programas describan su E/S y que las acciones se lleven a cabo fuera del programa. Esto resulta interesante, pues las funciones de E/S introducirían un efecto colateral para cualquier lenguaje de programación, pero ahora una programación puramente funcional resultaría práctica.</span></span><br style="box-sizing: border-box;"><h4 style="color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">
+Ejemplos de dispositivos de entrada/salida</h4>
+<div style="color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">
+Existen muchos dispositivos de Entrada y de salida conectados a nuestros equipos, algunos ejemplos son:</div>
+<div style="font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px; text-align: center;">
+<b><span style="color: blue;">Dispositivos de entrada</span></b></div>
+<div style="color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">
+<ul>
+<li style="text-align: center;"><i><u>Teclado</u></i></li>
+</ul>
+</div>
+<div class="separator" style="clear: both; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px; text-align: center;">
+<a href="http://4.bp.blogspot.com/-dXycVn8lyns/VmpntZ5PCyI/AAAAAAAAAkU/skEeHOECp-0/s1600/3780074932_3886181808.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="240" src="./bus_files/3780074932_3886181808.jpg" width="320"></a></div>
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<ul>
+<li><span style="color: #333333; font-family: &quot;open sans&quot; , sans-serif;"><span style="font-size: 15px; line-height: 23.25px;">Micrófono</span></span></li>
+</ul>
+<br>
+<div style="color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">
+<br></div>
+<div class="separator" style="clear: both; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px; text-align: center;">
+<a href="http://2.bp.blogspot.com/-y_eE3YgG95k/VmpntjOU1pI/AAAAAAAAAkY/gk3jvhUCyMU/s1600/images.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="239" src="./bus_files/images.jpg" width="320"></a></div>
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<ul>
+<li><span style="color: #333333; font-family: &quot;open sans&quot; , sans-serif;"><span style="font-size: 15px; line-height: 23.25px;">Ratón</span></span></li>
+</ul>
+<br>
+<div style="color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">
+<br></div>
+<div class="separator" style="clear: both; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px; text-align: center;">
+</div>
+<div style="color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">
+<br></div>
+</section></div>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://4.bp.blogspot.com/-Sq5FuYE-ig8/Vmpnytsj0FI/AAAAAAAAAko/g4XVRhPvooE/s1600/MS-Arc-Mouse.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="189" src="./bus_files/MS-Arc-Mouse.jpg" width="320"></a></div>
+<div class="separator" style="clear: both; text-align: center;">
+<br></div>
+<div class="separator" style="clear: both; text-align: center;">
+<b><span style="color: blue;">Dispositivos de salida</span></b></div>
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<ul>
+<li>Pantalla</li>
+</ul>
+<div>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://4.bp.blogspot.com/-bR0HhPG_Uzg/VmprctDBjCI/AAAAAAAAAkw/yrBJr-TyJk4/s1600/monitor-led-viewsonic-24-td2420-multi-touch-screen-full-hd-3552-MLM4357250608_052013-F.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="320" src="./bus_files/monitor-led-viewsonic-24-td2420-multi-touch-screen-full-hd-3552-MLM4357250608_052013-F.jpg" width="320"></a></div>
+<br></div>
+<div>
+<br></div>
+<div>
+<br></div>
+<ul>
+<li>Bocinas</li>
+</ul>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://2.bp.blogspot.com/-N1vygl9e4rk/VmprhODZhSI/AAAAAAAAAk4/Of8ZhLO_0rE/s1600/bocinas-audio-portatil-11932-MLM20051224304_022014-Y.jpg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="320" src="./bus_files/bocinas-audio-portatil-11932-MLM20051224304_022014-Y.jpg" width="320"></a></div>
+<div class="separator" style="clear: both; text-align: center;">
+<br></div>
+<div class="separator" style="clear: both; text-align: center;">
+<br></div>
+<br>
+<br>
+<section id="pf_text_33" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;"><br style="box-sizing: border-box;"><h2 style="text-align: center;">
+Controlador de interrupciones</h2>
+Este circuito integrado controla las interrupciones del sistema. Como el microprocesador sólo posee dos entradas de interrupción, y puede controlar muchas más, es necesario algún integrado que no permita ello. El 8259 cumple este propósito. El funcionamiento del 8259 es muy sencillo: Supongamos que no queda ninguna interrupción pendiente y el CPU está trabajando en el Programa principal . Al activarse una línea de interrupción, el 8259 verifica que no haya otra interrupción pendiente, y si no la hay, envía una señal a través del pin INTR hacia el pin INTR del CPU, adicionalmente, envía a través del bus de datos, el número de interrupción que se ha activado, de tal manera que el CPU ya sabe qué servicio de interrupción va a usar. Una vez que recibió el CPU este valor, activa su pin INTA, indicando que ya recibió y está ejecutando el servicio. Una vez que el CPU termina, el pin INTA se</section><section id="pf_text_34" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">desactiva, indicando al 8259 que está listo para procesar otras interrupciones. Las rutinas de los servicios de interrupción están vectorizadas en las primeras posiciones de memoria, y están distribuidas de la manera siguiente: El los dos primeros bytes corresponden al valor que irá al registro IP, que indica el desplazamiento; y los dos siguientes, corresponden al registro CS, que indica el segmento donde está el servicio de interrupción. Estos dos pares de bytes se inician en la posición de memoria 0000h y corresponden a la interrupción 0; los siguientes cuatro corresponden a la interrupción 1, y así sucesivamente hasta las 256 interrupciones (total 1024 bytes). Esto significa que el usuario puede crear su propio servicio de interrupción y accederlo a través de la manipulación de estos bytes. El 8259, posee varios modos de configuración, dependiendo de la manera cómo se desea que se traten a las interrupciones Hay que tener en cuenta que la interrupción no enmascarable NMI, va directamente a CPU y es la encargada de indicar errores de paridad en la memoria, fallos de circuiteria y el procesador matemático. En el PC/XT original es posible un total de 256 interrupciones, de las cuales 8 son por hardware y las demás por software. La distribución de las interrupciones en el PC/XT es:<br style="box-sizing: border-box;"><br style="box-sizing: border-box;"> IRQ FUNCION IRQ0 Reloj en tiempo real IRQ1 Teclado IRQ2 PC-Net IRQ3 Puerto serie secundario IRQ4 Puerto serie primario IRQ5 Disco duro IRQ6 Diskette IRQ7 Impresora El 8259 posee cuatro palabras de control que se encargan de configurar al integrado para que</section><section id="pf_text_35" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">funcione correctamente. En la primera palabra de estado (ICW1), se configura el modo del 8259 (es decir para que trabaje junto con otro más y ampliar las interrupciones), el modo de disparo de las interrupciones (Nivel o flanco descendente) y parte de los vectores de interrupción. En la segunda palabra de estado (ICW2), se configuran los vectores de interrupción. La tercera palabra funciona cuando el 8259 trabaja en modo múltiple con otros más. Aquí se configura el modo maestro/esclavo. El la ICW4, se configura el modo de manejo de las interrupciones (modo buffered, interrupciones anidadas y el tipo de procesador al que se conecta)<br style="box-sizing: border-box;"><br style="box-sizing: border-box;"> Hay que tener en cuenta que el pin INTR del CPU se puede configurar para que no reciba interrupciones (en ensamblador CLI). El pin NMI no se puede deshabilitar y esta interrupción puede interrumpir a cualquier otra interrupción que se esté ejecutando en ese momento.</section><br>
+<br>
+<h2 style="text-align: center;">
+Controlador de DMA</h2>
+<div>
+<br>
+<br>
+<section id="pf_text_35" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">El mecanismo de acceso directo a memoria está controlado por un chip específico, el DMAC ( DMA Controller ), que permite realizar estos intercambios sin apenas intervención del procesador. En los chipset XT estaba integrado en un chip 8237A que proporcionaba 4 canales de 8 bits (puede mover solo 1 Byte cada vez); sus direcciones de puerto son 000 00Fh. Posteriormente en los AT se instalaron dos de estos integrados y las correspondientes líneas auxiliares en el bus de control. En contra de lo que podría parecer, el resultado no fue disponer de 8 canales, porque el segundo controlador se colgó en Cascada de la línea 4 del primero</section><section id="pf_text_36" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">(más adelante se explica este concepto ). Los canales del segundo DMAC está asignado a las direcciones 0C0 0DFh y son de 16 bits. Pueden mover 2 Bytes (de posiciones contiguas) cada vez. Cada canal tiene asignada una prioridad para el caso de recibirse simultáneamente varias peticiones (los números más bajos tienen prioridad más alta). Pueden ser utilizados por cualquier dispositivo que los necesite (suponiendo naturalmente que esté diseñado para soportar este modo de operación). Cada sistema los asigna de forma arbitraria, pero hay algunos cuya asignación es estándar. El acceso directo a memoria permite a cierto tipo de componentes de ordenador acceder a la memoria del sistema para leer o escribir independientemente de la CPU principal. Muchos sistemas hardware utilizan DMA, incluyendo controladores de unidades de disco, tarjetas gráficas y tarjetas de sonido. DMA es una característica esencial en todos los ordenadores modernos, ya que permite a dispositivos de diferentes velocidades comunicarse sin someter a la CPU a una carga masiva de interrupciones. Una transferencia DMA consiste principalmente en copiar un bloque de memoria de un dispositivo a otro. En lugar de que la CPU inicie la transferencia, la transferencia se lleva a cabo por el controlador DMA. Un ejemplo típico es mover un bloque de memoria desde una memoria externa a una interna más rápida. Tal operación no ocupa el procesador y como resultado puede ser planificado para efectuar otras tareas. Las transferencias DMA son esenciales para aumentar el rendimiento de aplicaciones</section><section id="pf_text_37" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">que requieran muchos recursos. Cabe destacar que aunque no se necesite a la CPU para la transacción de datos, sí que se necesita el bus del sistema (tanto bus de datos como bus de direcciones), por lo que existen diferentes estrategias para regular su uso, permitiendo así que no quede totalmente acaparado por el controlador DMA.</section><section id="pf_text_37" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;"><br></section><section id="pf_text_37" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">Una operación de E/S por DMA se establece ejecutando una corta rutina de inicialización. Consiste en varias instrucciones de salida para asignar valores iniciales a: - AR: Direccion de memoria de la región de datos de E/S IOBUF (buffer de entrada/salida). - WC: Número N de palabras de datos a transferir. Una vez inicializado, el DMA procede a transferir datos entre IOBUF y el dispositivo de E/S. Se realiza una transferencia cuando el dispositivo de E/S solicite una operación de DMA a través de la línea de petición del DMAC. Después de cada transferencia, se decrementa el valor de WC y se incrementa el de AR.<br style="box-sizing: border-box;"><br style="box-sizing: border-box;"> La operación termina cuando WC=0, entonces el DMAC (o el periférico) indica la conclusión de la operación enviando al procesador una petición de interrupción.</section><section id="pf_text_37" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;"><br></section><section id="pf_text_37" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;"><br></section><br>
+<h2 style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px; text-align: center;">
+</h2>
+<h2 circuitos="" control="" de="" h2="" n="" temporizaci="" y="">
+</h2>
+</div>
+<h2 style="text-align: center;">
+<span style="background-color: white; color: #333333; font-family: &quot;open sans&quot; , sans-serif; font-weight: normal; line-height: 23.25px;"><span style="font-size: large;">Circuitos de temporización y control</span></span></h2>
+<br>
+<section id="pf_text_39" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">El Circuito de temporizador y control: Es una red secuencial que acepta un código que define la operación que se va a ejecutar y luego prosigue a través de una secuencia de estados, generando una correspondiente secuencia de señales de control. Estas señales de control incluyen el control de lectura escritura y señales de dirección de memoria válida en el bus de control del sistema. Otras señales generadas por el controlador se conectan a la unidad aritmética lógica y a los registros internos del procesador para regular el flujo de información en el procesador y a, y desde, los buses de dirección y de datos del sistema. El temporizador es un circuito que se encuentra en la tarjeta matriz (Mother Borrad) de la PC y que es capaz</section><section id="pf_text_40" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">de mantener una cuenta de tiempo basada en el reloj de la computadora. Puede usarse para calcular el intervalo entre dos mediciones de tiempo o para generar pausas. Este chip tiene la capacidad de realizar diferentes funciones de conteo. Es útil para medir el tiempo que dura cierto proceso o para mantener actualizadas la hora del día y la fecha si se deja la PC conectada y encendida (en el caso de computadoras anteriores a la AT, pues esta tiene un reloj de batería integrado; a este respaldo de batería se le conoce como CMOS (complementary MOS).<br style="box-sizing: border-box;"><br style="box-sizing: border-box;"> El chip mantiene tres contadores independientes (definidos como 0, 1, 2), cada uno de los cuales es alimentado por una señal que equivale a 1.19318 MHZ. El contador obtiene una capacidad máxima de conteo que asciende a 65 536. Su salida tiene una frecuencia de 18.2 HZ.(1.19/65536) aproximadamente. Por lo tanto, cualquier acción que interrumpa a la PC ocurrirá 18.2 veces por segundo (cada 55 ms o cada 0.055 segundos en forma redondeada). Dicha acción genera una interrupción llamada interrupción del contador, la cual interrumpe brevemente la CPU e incrementa la cuenta del día. Cuando el contador del canal cero llega a 0 (los tres contadores del temporizador timer siempre cuentan en forma regresiva), significa que la hora es exactamente las 24:00 (hora militar) y entonces es inicializado a cero de nuevo. El contador 1 es usado por la PC para realizar el proceso de refrescamiento de memoria (DMA memory Refresh) y no debe ser alterado bajo ninguna circunstancia. El contador 2 generalmente se encuentra</section><section id="pf_text_41" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">programado para trabajar con la bocina. Los primeros dos contadores (0 y 1) envían una interrupción a la CPU mientras que el 2 no lo hace.</section><section id="pf_text_41" style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;"><br></section><br>
+<h2 style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; line-height: 23.25px; text-align: center;">
+<span style="font-size: large;">Controladores de video</span></h2>
+<div>
+<span style="background-color: white; color: #333333; font-family: &quot;open sans&quot; , sans-serif; font-size: 15px; line-height: 23.25px;">Los controladores son circuitos de entrada que tienen todas las impresoras. Son los que procesan la información en primer lugar para saber exactamente qué les está llegando y como manipular los datos. Por ejemplo, un controlador de una impresora recoge los datos que proceden del PC y los convierte en datos de imagen que deberán pasar a lo que llamamos video interface de la impresora. Este otro dispositivo, se encarga de recuperar los datos que ha dejado el controlador e inyectarlos hasta el sistema de escritura del periférico. Los datos de imagen indican si un punto es blanco o negro, en caso de una impresora de color de que color será ese punto. Veamos un ejemplo de la formación de una letra A :&nbsp;</span></div>
+<div>
+<span style="background-color: white; color: #333333; font-family: &quot;open sans&quot; , sans-serif; font-size: 15px; line-height: 23.25px;"><br></span></div>
+<div>
+<span style="background-color: white; color: #333333; font-family: &quot;open sans&quot; , sans-serif; font-size: 15px; line-height: 23.25px;">1. El controlador recibe un dato del ordenador. Ese dato es el número 41h. según una tabla el controlador interpreta que 41h quiere decir A .</span><br>
+<br style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">
+<span style="background-color: white; color: #333333; font-family: &quot;open sans&quot; , sans-serif; font-size: 15px; line-height: 23.25px;"> 2. Tras interpretar el dato como una A el controlador busca en sus fuentes la forma de esa letra.</span><br>
+<br style="background-color: white; box-sizing: border-box; color: #333333; font-family: &#39;Open Sans&#39;, sans-serif; font-size: 15px; line-height: 23.25px;">
+<span style="background-color: white; color: #333333; font-family: &quot;open sans&quot; , sans-serif; font-size: 15px; line-height: 23.25px;"> 3. Una vez se ha creado toda la imagen de una página esta se le pasa al video interface. Los datos de una página pasados a imagen se llaman datos rasterizados o rípeados. Los datos rasterízados se transmiten a la video interface de línea a línea.</span></div>
+<div>
+<span style="background-color: white; color: #333333; font-family: &quot;open sans&quot; , sans-serif; font-size: 15px; line-height: 23.25px;"><br></span></div>
+<div>
+<span style="background-color: white; color: #333333; font-family: &quot;open sans&quot; , sans-serif; font-size: 15px; line-height: 23.25px;"><br></span></div>
+<div>
+<span style="background-color: white; color: #333333; font-family: &quot;open sans&quot; , sans-serif; font-size: 15px; line-height: 23.25px;"><br></span></div>
+<br>
+<br>
+<br>
+<br>
+<br></div>
+</div>
+</div>
+</div>
+<div class="post-footer">
+<div class="post-footer-line post-footer-line-1">
+<div class="byline post-share-buttons goog-inline-block">
+<div aria-owns="sharing-popup-Blog1-footer-1-8624419039832350185" class="sharing" data-title="3.1  CPU, Controlador del bus, Puertos de E/S, controlador de interrupciones, de DMA, Circuitos de temporizacion, controladores de video">
+<button aria-controls="sharing-popup-Blog1-footer-1-8624419039832350185" aria-label="Compartir" class="sharing-button touch-icon-button" id="sharing-button-Blog1-footer-1-8624419039832350185" role="button" aria-expanded="false" aria-haspopup="true">
+Compartir
+</button>
+<div class="share-buttons-container">
+<ul aria-hidden="true" aria-label="Compartir" class="share-buttons hidden" id="sharing-popup-Blog1-footer-1-8624419039832350185" role="menu">
+<li>
+<span aria-label="Obtener vínculo" class="sharing-platform-button sharing-element-link" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8624419039832350185&amp;target=" data-url="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" role="menuitem" tabindex="-1" title="Obtener vínculo">
+<svg class="svg-icon-24 touch-icon sharing-link">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_link_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Obtener vínculo</span>
+</span>
+</li>
+<li>
+<span aria-label="Compartir en Facebook" class="sharing-platform-button sharing-element-facebook" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8624419039832350185&amp;target=facebook" data-url="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" role="menuitem" tabindex="-1" title="Compartir en Facebook">
+<svg class="svg-icon-24 touch-icon sharing-facebook">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_facebook_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Facebook</span>
+</span>
+</li>
+<li>
+<span aria-label="Compartir en Twitter" class="sharing-platform-button sharing-element-twitter" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8624419039832350185&amp;target=twitter" data-url="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" role="menuitem" tabindex="-1" title="Compartir en Twitter">
+<svg class="svg-icon-24 touch-icon sharing-twitter">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_twitter_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Twitter</span>
+</span>
+</li>
+<li>
+<span aria-label="Compartir en Pinterest" class="sharing-platform-button sharing-element-pinterest" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8624419039832350185&amp;target=pinterest" data-url="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" role="menuitem" tabindex="-1" title="Compartir en Pinterest">
+<svg class="svg-icon-24 touch-icon sharing-pinterest">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_pinterest_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Pinterest</span>
+</span>
+</li>
+<li>
+<span aria-label="Correo electrónico" class="sharing-platform-button sharing-element-email" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8624419039832350185&amp;target=email" data-url="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" role="menuitem" tabindex="-1" title="Correo electrónico">
+<svg class="svg-icon-24 touch-icon sharing-email">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_email_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Correo electrónico</span>
+</span>
+</li>
+<li aria-hidden="true" class="hidden">
+<span aria-label="Compartir en otras apps" class="sharing-platform-button sharing-element-other" data-url="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" role="menuitem" tabindex="-1" title="Compartir en otras apps">
+<svg class="svg-icon-24 touch-icon sharing-sharingOther">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_more_horiz_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Otras apps</span>
+</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="post-footer-line post-footer-line-2">
+</div>
+<div class="post-footer-line post-footer-line-3">
+</div>
+</div>
+</div>
+</div>
+<section class="comments threaded" data-embed="true" data-num-comments="3" id="comments">
+<a name="comments"></a>
+<h3 class="title">Comentarios</h3>
+<div class="comments-content">
+<script async="async" src="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html" type="text/javascript"></script>
+<script type="text/javascript">(function(){/*
+
+ Copyright The Closure Library Authors.
+ SPDX-License-Identifier: Apache-2.0
+*/
+var m=this||self,p=function(a,b){function d(){}d.prototype=b.prototype;a.superClass_=b.prototype;a.prototype=new d;a.prototype.constructor=a;a.base=function(f,e,q){for(var r=Array(arguments.length-2),n=2;n<arguments.length;n++)r[n-2]=arguments[n];return b.prototype[e].apply(f,r)}},t=function(a){return a};function w(a){if(Error.captureStackTrace)Error.captureStackTrace(this,w);else{var b=Error().stack;b&&(this.stack=b)}a&&(this.message=String(a))}p(w,Error);w.prototype.name="CustomError";var x=function(a,b){a=a.split("%s");for(var d="",f=a.length-1,e=0;e<f;e++)d+=a[e]+(e<b.length?b[e]:"%s");w.call(this,d+a[f])};p(x,w);x.prototype.name="AssertionError";var y=function(a,b){throw new x("Failure"+(a?": "+a:""),Array.prototype.slice.call(arguments,1));};var C;var E=function(a,b){this.privateDoNotAccessOrElseTrustedResourceUrlWrappedValue_=b===D?a:""};E.prototype.toString=function(){return this.privateDoNotAccessOrElseTrustedResourceUrlWrappedValue_+""};var D={},G=function(a){if(void 0===C){var b=null;var d=m.trustedTypes;if(d&&d.createPolicy)try{b=d.createPolicy("goog#html",{createHTML:t,createScript:t,createScriptURL:t})}catch(f){m.console&&m.console.error(f.message)}C=b}a=(b=C)?b.createScriptURL(a):a;return new E(a,D)};var H=function(a,b){if(b instanceof E&&b.constructor===E)b=b.privateDoNotAccessOrElseTrustedResourceUrlWrappedValue_;else{var d=typeof b;y("expected object of type TrustedResourceUrl, got '"+b+"' of type "+("object"!=d?d:b?Array.isArray(b)?"array":d:"null"));b="type_error:TrustedResourceUrl"}a.src=b;var f;b=(a.ownerDocument&&a.ownerDocument.defaultView||window).document;(f=(b=null===(f=b.querySelector)||void 0===f?void 0:f.call(b,"script[nonce]"))?b.nonce||b.getAttribute("nonce")||"":"")&&a.setAttribute("nonce",
+f)};var M=function(){var a=document;var b="SCRIPT";"application/xhtml+xml"===a.contentType&&(b=b.toLowerCase());return a.createElement(b)};var N=function(a,b,d){var f=null;a&&0<a.length&&(f=parseInt(a[a.length-1].timestamp,10)+1);var e=null,q=null,r=void 0,n=null,z=(window.location.hash||"#").substring(1),I,J;/^comment-form_/.test(z)?I=z.substring(13):/^c[0-9]+$/.test(z)&&(J=z.substring(1));var R={id:d.postId,data:a,loadNext:function(l){if(f){var g=d.feed+"?alt=json&v=2&orderby=published&reverse=false&max-results=50";f&&(g+="&published-min="+(new Date(f)).toISOString());window.bloggercomments=function(A){f=null;var u=[];if(A&&A.feed&&
+A.feed.entry)for(var K=0,c;c=A.feed.entry[K];K++){var k={},h=/blog-(\d+).post-(\d+)/.exec(c.id.$t);k.id=h?h[2]:null;h=k;a:{var v=void 0;var L=c&&(c.content&&c.content.$t||c.summary&&c.summary.$t)||"";if(c&&c.gd$extendedProperty)for(v in c.gd$extendedProperty)if("blogger.contentRemoved"==c.gd$extendedProperty[v].name){v='<span class="deleted-comment">'+L+"</span>";break a}v=L}h.body=v;k.timestamp=Date.parse(c.published.$t)+"";c.author&&c.author.constructor===Array&&(h=c.author[0])&&(k.author={name:h.name?
+h.name.$t:void 0,profileUrl:h.uri?h.uri.$t:void 0,avatarUrl:h.gd$image?h.gd$image.src:void 0});c.link&&(c.link[2]&&(k.link=k.permalink=c.link[2].href),c.link[3]&&(h=/.*comments\/default\/(\d+)\?.*/.exec(c.link[3].href))&&h[1]&&(k.parentId=h[1]));k.deleteclass="item-control blog-admin";if(c.gd$extendedProperty)for(var B in c.gd$extendedProperty)"blogger.itemClass"==c.gd$extendedProperty[B].name?k.deleteclass+=" "+c.gd$extendedProperty[B].value:"blogger.displayTime"==c.gd$extendedProperty[B].name&&
+(k.displayTime=c.gd$extendedProperty[B].value);u.push(k)}f=50>u.length?null:parseInt(u[u.length-1].timestamp,10)+1;l(u);window.bloggercomments=null};var F=M();F.type="text/javascript";H(F,G(g+"&callback=bloggercomments"));document.getElementsByTagName("head")[0].appendChild(F)}},hasMore:function(){return!!f},getMeta:function(l,g){return"iswriter"==l?g.author&&g.author.name==d.authorName&&g.author.profileUrl==d.authorUrl?"true":"":"deletelink"==l?d.baseUri+"/delete-comment.g?blogID="+d.blogId+"&postID="+
+g.id:"deleteclass"==l?g.deleteclass:""},onReply:function(l,g){null==e&&(e=document.getElementById("comment-editor"),null!=e&&(n=e.style.height,e.style.display="block",q=e.src.split("#")));e&&l&&l!==r&&(document.getElementById(g).insertBefore(e,null),g=q[0]+(l?"&parentID="+l:""),q[1]&&(g=g+"#"+q[1]),e.src=g,e.style.height=n||e.style.height,r=l,e.removeAttribute("data-resized"),e.dispatchEvent(new Event("iframeMoved")))},rendered:!0,initComment:J,initReplyThread:I,config:{maxDepth:d.maxThreadDepth},
+messages:b};a=function(){window.goog&&window.goog.comments&&window.goog.comments.render(document.getElementById("comment-holder"),R)};window.goog&&window.goog.comments?a():(window.goog=window.goog||{},window.goog.comments=window.goog.comments||{},window.goog.comments.loadQueue=window.goog.comments.loadQueue||[],window.goog.comments.loadQueue.push(a))},O=["blogger","widgets","blog","initThreadedComments"],P=m;O[0]in P||"undefined"==typeof P.execScript||P.execScript("var "+O[0]);
+for(var Q;O.length&&(Q=O.shift());)O.length||void 0===N?P=P[Q]&&P[Q]!==Object.prototype[Q]?P[Q]:P[Q]={}:P[Q]=N;}).call(this);
+</script>
+<script type="text/javascript">
+    blogger.widgets.blog.initThreadedComments(
+        null,
+        null,
+        {});
+  </script>
+<div id="comment-holder">
+<div class="comment-thread toplevel-thread"><ol id="top-ra"><li class="comment" id="c2236239398491595201"><div class="avatar-image-container"><img src="./bus_files/blogger_logo_round_35.png" alt=""></div><div class="comment-block"><div class="comment-header"><cite class="user"><a href="https://www.blogger.com/profile/02322109269324875767" rel="nofollow">Unknown</a></cite><span class="icon user "></span><span class="datetime secondary-text"><a rel="nofollow" href="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html?showComment=1540779098234#c2236239398491595201">28 de octubre de 2018, 19:11</a></span></div><p class="comment-content">Asi es mi querido M I L A N E S O<br></p><span class="comment-actions secondary-text"><a class="comment-reply" target="_self" data-comment-id="2236239398491595201" href="javascript:;">Responder</a><span class="item-control blog-admin blog-admin pid-2067285521"><a target="_self" href="https://www.blogger.com/delete-comment.g?blogID=5828396875459327552&amp;postID=2236239398491595201">Borrar</a></span></span></div><div class="comment-replies"><div id="c2236239398491595201-rt" class="comment-thread inline-thread hidden"><span class="thread-toggle thread-expanded"><span class="thread-arrow"></span><span class="thread-count"><a target="_self" href="javascript:;">Respuestas</a></span></span><ol id="c2236239398491595201-ra" class="thread-chrome thread-expanded"><div></div><div id="c2236239398491595201-continue" class="continue"><a class="comment-reply" target="_self" data-comment-id="2236239398491595201" href="javascript:;">Responder</a></div></ol></div></div><div class="comment-replybox-single" id="c2236239398491595201-ce"></div></li><li class="comment" id="c8165262329725478938"><div class="avatar-image-container"><img src="./bus_files/blogger_logo_round_35.png" alt=""></div><div class="comment-block"><div class="comment-header"><cite class="user"><a href="https://www.blogger.com/profile/17457634061200488366" rel="nofollow">Uriel</a></cite><span class="icon user "></span><span class="datetime secondary-text"><a rel="nofollow" href="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html?showComment=1605128611084#c8165262329725478938">11 de noviembre de 2020, 13:03</a></span></div><p class="comment-content">Esta todo mal, reprobado en mi materia joven.<br></p><span class="comment-actions secondary-text"><a class="comment-reply" target="_self" data-comment-id="8165262329725478938" href="javascript:;">Responder</a><span class="item-control blog-admin blog-admin pid-1000302274"><a target="_self" href="https://www.blogger.com/delete-comment.g?blogID=5828396875459327552&amp;postID=8165262329725478938">Borrar</a></span></span></div><div class="comment-replies"><div id="c8165262329725478938-rt" class="comment-thread inline-thread hidden"><span class="thread-toggle thread-expanded"><span class="thread-arrow"></span><span class="thread-count"><a target="_self" href="javascript:;">Respuestas</a></span></span><ol id="c8165262329725478938-ra" class="thread-chrome thread-expanded"><div></div><div id="c8165262329725478938-continue" class="continue"><a class="comment-reply" target="_self" data-comment-id="8165262329725478938" href="javascript:;">Responder</a></div></ol></div></div><div class="comment-replybox-single" id="c8165262329725478938-ce"></div></li><li class="comment" id="c7367190422733954675"><div class="avatar-image-container"><img src="./bus_files/blogger_logo_round_35.png" alt=""></div><div class="comment-block"><div class="comment-header"><cite class="user"><a href="https://www.blogger.com/profile/02262081487911732701" rel="nofollow">Tío Alien</a></cite><span class="icon user "></span><span class="datetime secondary-text"><a rel="nofollow" href="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html?showComment=1605141750007#c7367190422733954675">11 de noviembre de 2020, 16:42</a></span></div><p class="comment-content">Este comentario ha sido eliminado por el autor.</p><span class="comment-actions secondary-text"><a class="comment-reply" target="_self" data-comment-id="7367190422733954675" href="javascript:;">Responder</a><span class="item-control blog-admin blog-admin "><a target="_self" href="https://www.blogger.com/delete-comment.g?blogID=5828396875459327552&amp;postID=7367190422733954675">Borrar</a></span></span></div><div class="comment-replies"><div id="c7367190422733954675-rt" class="comment-thread inline-thread hidden"><span class="thread-toggle thread-expanded"><span class="thread-arrow"></span><span class="thread-count"><a target="_self" href="javascript:;">Respuestas</a></span></span><ol id="c7367190422733954675-ra" class="thread-chrome thread-expanded"><div></div><div id="c7367190422733954675-continue" class="continue"><a class="comment-reply" target="_self" data-comment-id="7367190422733954675" href="javascript:;">Responder</a></div></ol></div></div><div class="comment-replybox-single" id="c7367190422733954675-ce"></div></li></ol><div id="top-continue" class="continue hidden"><a class="comment-reply" target="_self" href="javascript:;">Agregar un comentario</a></div><div class="comment-replybox-thread" id="top-ce"><iframe allowtransparency="allowtransparency" class="blogger-iframe-colorize blogger-comment-from-post" frameborder="0" height="88px" id="comment-editor" name="comment-editor" src="./bus_files/comment-iframe.html" width="100%" style="display: block;" data-resized="true"></iframe></div><div class="loadmore hidden" data-post-id="8624419039832350185"><a target="_self">Cargar más...</a></div></div>
+</div>
+</div>
+<p class="comment-footer">
+</p><div class="comment-form">
+<a name="comment-form"></a>
+<h4 id="comment-post-message">Publicar un comentario</h4>
+<a href="https://www.blogger.com/comment-iframe.g?blogID=5828396875459327552&amp;postID=8624419039832350185&amp;skin=soho&amp;blogspotRpcToken=2794324" id="comment-editor-src"></a>
+
+<script src="./bus_files/1114208092-comment_from_post_iframe.js.descarga" type="text/javascript"></script>
+<script type="text/javascript">
+      BLOG_CMT_createIframe('https://www.blogger.com/rpc_relay.html');
+    </script>
+</div>
+<p></p>
+</section>
+</div>
+</div>
+</div><div class="widget PopularPosts" data-version="2" id="PopularPosts1">
+<h3 class="title">
+Entradas populares
+</h3>
+<div class="widget-content">
+<div role="feed">
+<article class="post" role="article">
+<div class="post no-featured-image">
+<div class="post-header">
+<div class="post-header-line-1">
+<span class="byline post-timestamp">
+<meta content="http://arquidepcs.blogspot.com/2015/12/33-ambientes-de-servicio.html">
+<a class="timestamp-link" href="http://arquidepcs.blogspot.com/2015/12/33-ambientes-de-servicio.html" rel="bookmark" title="permanent link">
+<time class="published" datetime="2015-12-10T23:56:00-08:00" title="2015-12-10T23:56:00-08:00">
+diciembre 10, 2015
+</time>
+</a>
+</span>
+</div>
+</div>
+<h3 class="post-title"><a href="http://arquidepcs.blogspot.com/2015/12/33-ambientes-de-servicio.html">3.3 Ambientes de servicio</a></h3>
+<div class="post-footer">
+<div class="post-footer-line post-footer-line-0">
+<div class="byline post-share-buttons goog-inline-block">
+<div aria-owns="sharing-popup-PopularPosts1-footer-0-8701944450726750923" class="sharing" data-title="3.3 Ambientes de servicio">
+<button aria-controls="sharing-popup-PopularPosts1-footer-0-8701944450726750923" aria-label="Compartir" class="sharing-button touch-icon-button" id="sharing-button-PopularPosts1-footer-0-8701944450726750923" role="button" aria-expanded="false" aria-haspopup="true">
+Compartir
+</button>
+<div class="share-buttons-container">
+<ul aria-hidden="true" aria-label="Compartir" class="share-buttons hidden" id="sharing-popup-PopularPosts1-footer-0-8701944450726750923" role="menu">
+<li>
+<span aria-label="Obtener vínculo" class="sharing-platform-button sharing-element-link" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8701944450726750923&amp;target=" data-url="http://arquidepcs.blogspot.com/2015/12/33-ambientes-de-servicio.html" role="menuitem" tabindex="-1" title="Obtener vínculo">
+<svg class="svg-icon-24 touch-icon sharing-link">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_link_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Obtener vínculo</span>
+</span>
+</li>
+<li>
+<span aria-label="Compartir en Facebook" class="sharing-platform-button sharing-element-facebook" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8701944450726750923&amp;target=facebook" data-url="http://arquidepcs.blogspot.com/2015/12/33-ambientes-de-servicio.html" role="menuitem" tabindex="-1" title="Compartir en Facebook">
+<svg class="svg-icon-24 touch-icon sharing-facebook">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_facebook_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Facebook</span>
+</span>
+</li>
+<li>
+<span aria-label="Compartir en Twitter" class="sharing-platform-button sharing-element-twitter" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8701944450726750923&amp;target=twitter" data-url="http://arquidepcs.blogspot.com/2015/12/33-ambientes-de-servicio.html" role="menuitem" tabindex="-1" title="Compartir en Twitter">
+<svg class="svg-icon-24 touch-icon sharing-twitter">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_twitter_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Twitter</span>
+</span>
+</li>
+<li>
+<span aria-label="Compartir en Pinterest" class="sharing-platform-button sharing-element-pinterest" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8701944450726750923&amp;target=pinterest" data-url="http://arquidepcs.blogspot.com/2015/12/33-ambientes-de-servicio.html" role="menuitem" tabindex="-1" title="Compartir en Pinterest">
+<svg class="svg-icon-24 touch-icon sharing-pinterest">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_pinterest_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Pinterest</span>
+</span>
+</li>
+<li>
+<span aria-label="Correo electrónico" class="sharing-platform-button sharing-element-email" data-href="https://www.blogger.com/share-post.g?blogID=5828396875459327552&amp;postID=8701944450726750923&amp;target=email" data-url="http://arquidepcs.blogspot.com/2015/12/33-ambientes-de-servicio.html" role="menuitem" tabindex="-1" title="Correo electrónico">
+<svg class="svg-icon-24 touch-icon sharing-email">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_24_email_dark" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Correo electrónico</span>
+</span>
+</li>
+<li aria-hidden="true" class="hidden">
+<span aria-label="Compartir en otras apps" class="sharing-platform-button sharing-element-other" data-url="http://arquidepcs.blogspot.com/2015/12/33-ambientes-de-servicio.html" role="menuitem" tabindex="-1" title="Compartir en otras apps">
+<svg class="svg-icon-24 touch-icon sharing-sharingOther">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_more_horiz_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<span class="platform-sharing-text">Otras apps</span>
+</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<span class="byline post-comment-link container">
+<a class="comment-link" href="http://arquidepcs.blogspot.com/2015/12/33-ambientes-de-servicio.html#comments" onclick="">
+Publicar un comentario
+</a>
+</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+</div>
+</div></div>
+</main>
+</div>
+<footer class="footer section" id="footer" name="Pie de página"><div class="widget Attribution" data-version="2" id="Attribution1">
+<div class="widget-content">
+<div class="blogger">
+<a href="https://www.blogger.com/" rel="nofollow">
+<svg class="svg-icon-24">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_post_blogger_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+Con tecnología de Blogger
+</a>
+</div>
+<div class="image-attribution">
+Imágenes del tema de <a href="http://www.offset.com/photos/223311">Matt Vince</a>
+</div>
+</div>
+</div></footer>
+</div>
+</div>
+<aside class="sidebar-container container sidebar-invisible" role="complementary">
+<div class="navigation">
+<svg class="svg-icon-24 touch-icon sidebar-back rtl-reversible-icon">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_arrow_back_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</div>
+<div class="section" id="sidebar" name="Barra lateral"><div class="widget Profile" data-version="2" id="Profile1">
+<div class="widget-content individual">
+<a href="https://www.blogger.com/profile/12547442045601667739" rel="nofollow">
+<div class="default-avatar-wrapper">
+<svg class="svg-icon-24 avatar-icon">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_person_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</div>
+</a>
+<div class="profile-info">
+<dl class="profile-datablock">
+<dt class="profile-data">
+<a class="profile-link g-profile" href="https://www.blogger.com/profile/12547442045601667739" rel="author nofollow">
+Unknown
+</a>
+</dt>
+</dl>
+<a class="profile-link" href="https://www.blogger.com/profile/12547442045601667739" rel="author">
+Visitar perfil
+</a>
+</div>
+</div>
+</div><div class="widget BlogArchive" data-version="2" id="BlogArchive1">
+<details class="collapsible extendable">
+<summary>
+<div class="collapsible-title">
+<h3 class="title">
+Archivo
+</h3>
+<svg class="svg-icon-24 chevron-down">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_expand_more_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+<svg class="svg-icon-24 chevron-up">
+<use xlink:href="/responsive/sprite_v1_6.css.svg#ic_expand_less_black_24dp" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+</svg>
+</div>
+</summary>
+<div class="widget-content">
+<div id="ArchiveList">
+<div id="BlogArchive1_ArchiveList">
+<div class="first-items">
+<ul class="hierarchy">
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://arquidepcs.blogspot.com/2017/">
+2017
+<span class="post-count">1</span>
+</a>
+</div>
+<div class="hierarchy-content">
+<ul class="hierarchy">
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://arquidepcs.blogspot.com/2017/08/">
+agosto
+<span class="post-count">1</span>
+</a>
+</div>
+<div class="hierarchy-content">
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="remaining-items">
+<ul class="hierarchy">
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://arquidepcs.blogspot.com/2015/">
+2015
+<span class="post-count">6</span>
+</a>
+</div>
+<div class="hierarchy-content">
+<ul class="hierarchy">
+<li class="archivedate">
+<div class="hierarchy-title">
+<a class="post-count-link" href="http://arquidepcs.blogspot.com/2015/12/">
+diciembre
+<span class="post-count">6</span>
+</a>
+</div>
+<div class="hierarchy-content">
+<ul class="posts hierarchy">
+<li>
+<a href="http://arquidepcs.blogspot.com/2015/12/33-ambientes-de-servicio.html">3.3 Ambientes de servicio</a>
+</li>
+<li>
+<a href="http://arquidepcs.blogspot.com/2015/12/32-aplicaciones.html">3.2 Aplicaciones</a>
+</li>
+<li>
+<a href="http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html">3.1  CPU, Controlador del bus, Puertos de E/S, con...</a>
+</li>
+<li>
+<a href="http://arquidepcs.blogspot.com/2015/12/31-chipset.html">3.1 Chipset</a>
+</li>
+<li>
+<a href="http://arquidepcs.blogspot.com/2015/12/unidad-3-la-computadora-basada-en-un.html">Unidad 3: La computadora basada en un procesador</a>
+</li>
+<li>
+<a href="http://arquidepcs.blogspot.com/2015/12/bienvenido.html">¡Bienvenido!</a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<span class="show-more flat-button">Mostrar más</span>
+<span class="show-less hidden flat-button">Mostrar menos</span>
+</div>
+</div>
+</div>
+</details>
+</div>
+<div class="widget ReportAbuse" data-version="2" id="ReportAbuse1">
+<h3 class="title">
+<a class="report_abuse" href="https://www.blogger.com/go/report-abuse" rel="noopener nofollow" target="_blank">
+Denunciar abuso
+</a>
+</h3>
+</div></div>
+</aside>
+<script type="text/javascript" src="./bus_files/1459053738-fancy_compiled.js.descarga" async="true"></script>
+
+<script type="text/javascript" src="./bus_files/2664015923-widgets.js.descarga"></script>
+<script type="text/javascript">
+window['__wavt'] = 'AOuZoY52WTvCld4HiRZq9E4Nl5phBzG2MA:1623627183047';_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d5828396875459327552','//arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html','5828396875459327552');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'blogId': '5828396875459327552', 'title': 'Arquitectura de computadoras', 'url': 'http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html', 'canonicalUrl': 'http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html', 'homepageUrl': 'http://arquidepcs.blogspot.com/', 'searchUrl': 'http://arquidepcs.blogspot.com/search', 'canonicalHomepageUrl': 'http://arquidepcs.blogspot.com/', 'blogspotFaviconUrl': 'http://arquidepcs.blogspot.com/favicon.ico', 'bloggerUrl': 'https://www.blogger.com', 'hasCustomDomain': false, 'httpsEnabled': true, 'enabledCommentProfileImages': true, 'gPlusViewType': 'FILTERED_POSTMOD', 'adultContent': false, 'analyticsAccountNumber': '', 'encoding': 'UTF-8', 'locale': 'es-419', 'localeUnderscoreDelimited': 'es_419', 'languageDirection': 'ltr', 'isPrivate': false, 'isMobile': false, 'isMobileRequest': false, 'mobileClass': '', 'isPrivateBlog': false, 'isDynamicViewsAvailable': true, 'feedLinks': '\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22Arquitectura de computadoras - Atom\x22 href\x3d\x22http://arquidepcs.blogspot.com/feeds/posts/default\x22 /\x3e\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/rss+xml\x22 title\x3d\x22Arquitectura de computadoras - RSS\x22 href\x3d\x22http://arquidepcs.blogspot.com/feeds/posts/default?alt\x3drss\x22 /\x3e\n\x3clink rel\x3d\x22service.post\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22Arquitectura de computadoras - Atom\x22 href\x3d\x22https://www.blogger.com/feeds/5828396875459327552/posts/default\x22 /\x3e\n\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22Arquitectura de computadoras - Atom\x22 href\x3d\x22http://arquidepcs.blogspot.com/feeds/8624419039832350185/comments/default\x22 /\x3e\n', 'meTag': '', 'adsenseHostId': 'ca-host-pub-1556223355139109', 'adsenseHasAds': false, 'adsenseAutoAds': false, 'view': '', 'dynamicViewsCommentsSrc': '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js', 'dynamicViewsScriptSrc': '//www.blogblog.com/dynamicviews/a14cc42c47587411', 'plusOneApiSrc': 'https://apis.google.com/js/plusone.js', 'disableGComments': true, 'sharing': {'platforms': [{'name': 'Obtener v\xednculo', 'key': 'link', 'shareMessage': 'Obtener v\xednculo', 'target': ''}, {'name': 'Facebook', 'key': 'facebook', 'shareMessage': 'Compartir en Facebook', 'target': 'facebook'}, {'name': 'BlogThis!', 'key': 'blogThis', 'shareMessage': 'BlogThis!', 'target': 'blog'}, {'name': 'Twitter', 'key': 'twitter', 'shareMessage': 'Compartir en Twitter', 'target': 'twitter'}, {'name': 'Pinterest', 'key': 'pinterest', 'shareMessage': 'Compartir en Pinterest', 'target': 'pinterest'}, {'name': 'Correo electr\xf3nico', 'key': 'email', 'shareMessage': 'Correo electr\xf3nico', 'target': 'email'}], 'disableGooglePlus': true, 'googlePlusShareButtonWidth': 300, 'googlePlusBootstrap': '\x3cscript type\x3d\x22text/javascript\x22\x3ewindow.___gcfg \x3d {\x27lang\x27: \x27es_419\x27};\x3c/script\x3e'}, 'hasCustomJumpLinkMessage': false, 'jumpLinkMessage': 'Leer m\xe1s', 'pageType': 'item', 'postId': '8624419039832350185', 'postImageThumbnailUrl': 'http://4.bp.blogspot.com/-dXycVn8lyns/VmpntZ5PCyI/AAAAAAAAAkU/skEeHOECp-0/s72-c/3780074932_3886181808.jpg', 'postImageUrl': 'http://4.bp.blogspot.com/-dXycVn8lyns/VmpntZ5PCyI/AAAAAAAAAkU/skEeHOECp-0/s320/3780074932_3886181808.jpg', 'pageName': '3.1  CPU, Controlador del bus, Puertos de E/S, controlador de interrupciones, de DMA, Circuitos de temporizacion, controladores de video', 'pageTitle': 'Arquitectura de computadoras: 3.1  CPU, Controlador del bus, Puertos de E/S, controlador de interrupciones, de DMA, Circuitos de temporizacion, controladores de video'}}, {'name': 'features', 'data': {'sharing_get_link_dialog': 'true', 'sharing_native': 'false'}}, {'name': 'messages', 'data': {'edit': 'Editar', 'linkCopiedToClipboard': 'V\xednculo copiado al portapapeles', 'ok': 'Aceptar', 'postLink': 'Publicar v\xednculo'}}, {'name': 'template', 'data': {'name': 'Soho', 'localizedName': 'Soho', 'isResponsive': true, 'isAlternateRendering': false, 'isCustom': false, 'variant': 'fancy_neon', 'variantId': 'fancy_neon'}}, {'name': 'view', 'data': {'classic': {'name': 'classic', 'url': '?view\x3dclassic'}, 'flipcard': {'name': 'flipcard', 'url': '?view\x3dflipcard'}, 'magazine': {'name': 'magazine', 'url': '?view\x3dmagazine'}, 'mosaic': {'name': 'mosaic', 'url': '?view\x3dmosaic'}, 'sidebar': {'name': 'sidebar', 'url': '?view\x3dsidebar'}, 'snapshot': {'name': 'snapshot', 'url': '?view\x3dsnapshot'}, 'timeslide': {'name': 'timeslide', 'url': '?view\x3dtimeslide'}, 'isMobile': false, 'title': '3.1  CPU, Controlador del bus, Puertos de E/S, controlador de interrupciones, de DMA, Circuitos de temporizacion, controladores de video', 'description': 'Ahora hablaremos acerca de los controladores del bus, que se encargan de dirigir las diferentes funciones de los buses, de los puertos de E/...', 'featuredImage': 'http://4.bp.blogspot.com/-dXycVn8lyns/VmpntZ5PCyI/AAAAAAAAAkU/skEeHOECp-0/s320/3780074932_3886181808.jpg', 'url': 'http://arquidepcs.blogspot.com/2015/12/311-controlador-del-bus-puertos-de-es.html', 'type': 'item', 'isSingleItem': true, 'isMultipleItems': false, 'isError': false, 'isPage': false, 'isPost': true, 'isHomepage': false, 'isArchive': false, 'isLabelSearch': false, 'postId': 8624419039832350185}}, {'name': 'widgets', 'data': [{'title': 'Buscar este blog', 'type': 'BlogSearch', 'sectionId': 'search_top', 'id': 'BlogSearch1'}, {'title': 'Arquitectura de computadoras (Encabezado)', 'type': 'Header', 'sectionId': 'header', 'id': 'Header1'}, {'title': '', 'type': 'FeaturedPost', 'sectionId': 'page_body', 'id': 'FeaturedPost1', 'postId': '8761052144924391620'}, {'title': 'Entradas del blog', 'type': 'Blog', 'sectionId': 'page_body', 'id': 'Blog1', 'posts': [{'id': '8624419039832350185', 'title': '3.1  CPU, Controlador del bus, Puertos de E/S, controlador de interrupciones, de DMA, Circuitos de temporizacion, controladores de video', 'featuredImage': 'http://4.bp.blogspot.com/-dXycVn8lyns/VmpntZ5PCyI/AAAAAAAAAkU/skEeHOECp-0/s320/3780074932_3886181808.jpg', 'showInlineAds': false}], 'headerByline': {'regionName': 'header1', 'items': [{'name': 'timestamp', 'label': ''}]}, 'footerBylines': [{'regionName': 'footer1', 'items': [{'name': 'share', 'label': ''}, {'name': 'comments', 'label': 'comentarios'}, {'name': 'icons', 'label': ''}]}, {'regionName': 'footer2', 'items': [{'name': 'labels', 'label': 'Etiquetas:'}]}, {'regionName': 'footer3', 'items': [{'name': 'location', 'label': 'Ubicaci\xf3n:'}]}], 'allBylineItems': [{'name': 'timestamp', 'label': ''}, {'name': 'share', 'label': ''}, {'name': 'comments', 'label': 'comentarios'}, {'name': 'icons', 'label': ''}, {'name': 'labels', 'label': 'Etiquetas:'}, {'name': 'location', 'label': 'Ubicaci\xf3n:'}]}, {'title': '', 'type': 'PopularPosts', 'sectionId': 'page_body', 'id': 'PopularPosts1', 'posts': [{'title': '3.1  CPU, Controlador del bus, Puertos de E/S, controlador de interrupciones, de DMA, Circuitos de temporizacion, controladores de video', 'id': 8624419039832350185}, {'title': '3.3 Ambientes de servicio', 'id': 8701944450726750923}]}, {'type': 'Attribution', 'sectionId': 'footer', 'id': 'Attribution1'}, {'title': 'Acerca de m\xed', 'type': 'Profile', 'sectionId': 'sidebar', 'id': 'Profile1'}, {'type': 'BlogArchive', 'sectionId': 'sidebar', 'id': 'BlogArchive1'}, {'title': '', 'type': 'ReportAbuse', 'sectionId': 'sidebar', 'id': 'ReportAbuse1'}]}]);
+_WidgetManager._RegisterWidget('_BlogSearchView', new _WidgetInfo('BlogSearch1', 'search_top', document.getElementById('BlogSearch1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'header', document.getElementById('Header1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FeaturedPostView', new _WidgetInfo('FeaturedPost1', 'page_body', document.getElementById('FeaturedPost1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'page_body', document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'lightboxEnabled': true, 'lightboxModuleUrl': 'https://www.blogger.com/static/v1/jsbin/3906910856-lbx__es_419.js', 'lightboxCssUrl': 'https://www.blogger.com/static/v1/v-css/1050234869-lightbox_bundle.css'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_PopularPostsView', new _WidgetInfo('PopularPosts1', 'page_body', document.getElementById('PopularPosts1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AttributionView', new _WidgetInfo('Attribution1', 'footer', document.getElementById('Attribution1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_ProfileView', new _WidgetInfo('Profile1', 'sidebar', document.getElementById('Profile1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebar', document.getElementById('BlogArchive1'), {'languageDirection': 'ltr', 'loadingMessage': 'Cargando\x26hellip;'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_ReportAbuseView', new _WidgetInfo('ReportAbuse1', 'sidebar', document.getElementById('ReportAbuse1'), {}, 'displayModeFull'));
+</script>
+
+<div class="dim-overlay hidden" id="subscribe-dim-overlay"></div><div class="dim-overlay hidden"></div><link type="text/css" rel="stylesheet" href="./bus_files/1050234869-lightbox_bundle.css"><script type="text/javascript" src="./bus_files/3906910856-lbx__es_419.js.descarga"></script></body></html>
